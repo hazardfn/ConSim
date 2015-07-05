@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConSim.Bash.Module", "ConSi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConSim.Lib", "ConSim.Lib\ConSim.Lib.csproj", "{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FFD9A672-6EC3-479D-8F65-A294F6DC84F4}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		travis.yml = travis.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -37,6 +43,8 @@ Global
 		{D6244E11-0886-4B01-B951-7D4972D6BFD1}.Debug|x86.Build.0 = Debug|Any CPU
 		{D6244E11-0886-4B01-B951-7D4972D6BFD1}.Release|x86.ActiveCfg = Release|Any CPU
 		{D6244E11-0886-4B01-B951-7D4972D6BFD1}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
