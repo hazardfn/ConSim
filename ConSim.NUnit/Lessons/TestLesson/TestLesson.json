@@ -1,0 +1,1 @@
+{"AllowedModules":[{"__type":"clsModule:#Classes","filename":"ConSim.Test.Module.dll","gettype":"Modules.TestModule"}],"Name":"TestLesson","Tasks":[{"__type":"clsTask:#Classes","ExpectedResult":"true","LongDescription":"This is a long description","Name":"taskness","ShortDescription":"This is short","lazyMatching":false}],"Version":"TEST","commandToTask":false}

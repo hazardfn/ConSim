@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{56879795-2E1B-4759-B23E-348E95E81959}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ConSim.NUnit</RootNamespace>
+    <AssemblyName>ConSim.NUnit</AssemblyName>
+    <ReleaseVersion>1.0</ReleaseVersion>
+    <Description>NUnit Tests for ConSim</Description>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TaskTests.cs" />
+    <Compile Include="ModuleTests.cs" />
+    <Compile Include="LessonTests.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Lessons\" />
+    <Folder Include="Lessons\TestLesson\" />
+    <Folder Include="Lessons\TestLesson\Tasks\" />
+    <Folder Include="Lessons\TestLesson\Modules\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConSim\ConSim.csproj">
+      <Project>{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}</Project>
+      <Name>ConSim</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ConSim.Test.Module\ConSim.Test.Module.csproj">
+      <Project>{D6244E11-0886-4B01-B951-7D4972D6BFD1}</Project>
+      <Name>ConSim.Test.Module</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lessons\TestLesson\Tasks\TestTask.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ConSim.Test.Module\bin\Debug\ConSim.Test.Module.dll">
+      <Link>Lessons\TestLesson\Modules\ConSim.Test.Module.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Lessons\TestLesson\TestLesson.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>
