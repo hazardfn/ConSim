@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ConSim.Bash.Module</RootNamespace>
     <AssemblyName>ConSim.Bash.Module</AssemblyName>
-    <ReleaseVersion>1.0</ReleaseVersion>
+    <ReleaseVersion>1.01</ReleaseVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <Description>A bash simulator module for ConSim. Forwards commands
 to bash and reads the error/standard output.</Description>
@@ -43,9 +43,9 @@ to bash and reads the error/standard output.</Description>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\ConSim\ConSim.csproj">
+    <ProjectReference Include="..\ConSim\ConSim.Lib.csproj">
       <Project>{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}</Project>
-      <Name>ConSim</Name>
+      <Name>ConSim.Lib</Name>
     </ProjectReference>
   </ItemGroup>
   <ProjectExtensions>

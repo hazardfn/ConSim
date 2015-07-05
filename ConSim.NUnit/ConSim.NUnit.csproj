@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ConSim.NUnit</RootNamespace>
     <AssemblyName>ConSim.NUnit</AssemblyName>
-    <ReleaseVersion>1.0</ReleaseVersion>
+    <ReleaseVersion>1.01</ReleaseVersion>
     <Description>NUnit Tests for ConSim</Description>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -50,13 +50,13 @@
     <Folder Include="Lessons\TestLesson\Modules\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConSim\ConSim.csproj">
-      <Project>{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}</Project>
-      <Name>ConSim</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ConSim.Test.Module\ConSim.Test.Module.csproj">
       <Project>{D6244E11-0886-4B01-B951-7D4972D6BFD1}</Project>
       <Name>ConSim.Test.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ConSim\ConSim.Lib.csproj">
+      <Project>{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}</Project>
+      <Name>ConSim.Lib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
