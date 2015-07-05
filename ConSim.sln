@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConSim.Lib", "ConSim\ConSim.Lib.csproj", "{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConSim.NUnit", "ConSim.NUnit\ConSim.NUnit.csproj", "{56879795-2E1B-4759-B23E-348E95E81959}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConSim.Test.Module", "ConSim.Test.Module\ConSim.Test.Module.csproj", "{D6244E11-0886-4B01-B951-7D4972D6BFD1}"
@@ -10,6 +8,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConSim.Windows.Module", "ConSim.Windows.Module\ConSim.Windows.Module.csproj", "{77F3F858-7CE9-4AF0-87BA-D77CD8FB9B38}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConSim.Bash.Module", "ConSim.Bash.Module\ConSim.Bash.Module.csproj", "{3794C8FA-B909-4008-AE78-6E34E1D5BD58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConSim.Lib", "ConSim.Lib\ConSim.Lib.csproj", "{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

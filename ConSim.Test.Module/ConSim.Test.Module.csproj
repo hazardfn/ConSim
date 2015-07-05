@@ -38,7 +38,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\ConSim\ConSim.Lib.csproj">
+    <ProjectReference Include="..\ConSim.Lib\ConSim.Lib.csproj">
       <Project>{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}</Project>
       <Name>ConSim.Lib</Name>
     </ProjectReference>

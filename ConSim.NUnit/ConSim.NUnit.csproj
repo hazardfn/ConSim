@@ -54,7 +54,7 @@
       <Project>{D6244E11-0886-4B01-B951-7D4972D6BFD1}</Project>
       <Name>ConSim.Test.Module</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ConSim\ConSim.Lib.csproj">
+    <ProjectReference Include="..\ConSim.Lib\ConSim.Lib.csproj">
       <Project>{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}</Project>
       <Name>ConSim.Lib</Name>
     </ProjectReference>
