@@ -9,7 +9,6 @@
     <AssemblyName>ConSim.NUnit</AssemblyName>
     <ReleaseVersion>1.01</ReleaseVersion>
     <Description>NUnit Tests for ConSim</Description>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

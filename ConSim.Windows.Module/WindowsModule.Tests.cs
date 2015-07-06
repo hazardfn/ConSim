@@ -57,7 +57,7 @@ namespace ConSim.Windows.Module
       // with cmd (e.g. Anything but Windows).
       if (mod.returnCode() != 2) {
         // Light check just to ensure some related output came back.
-        Assert.AreEqual (mod.standardOutput ().Contains ("Reply"), true);
+        Assert.AreEqual (mod.standardOutput ().Contains ("Address"), true);
       }
     }
 
@@ -79,7 +79,7 @@ namespace ConSim.Windows.Module
       // with cmd (e.g. Anything but Windows).
       if (mod.returnCode() != 2) {
         // Light check just to ensure some related output came back.
-        Assert.AreEqual (mod.standardOutput ().Contains ("Address"), true);
+        Assert.AreEqual (mod.standardOutput ().Contains ("Pinging"), true);
       }
     }
 
@@ -98,7 +98,7 @@ namespace ConSim.Windows.Module
       // with cmd (e.g. Anything but Windows).
       if (mod.returnCode() != 2) {
         // Light check just to ensure some related output came back.
-        Assert.AreEqual (mod.standardOutput ().Contains ("tracing"), true);
+        Assert.AreEqual (mod.standardOutput ().Contains ("Tracing"), true);
       }
     }
 

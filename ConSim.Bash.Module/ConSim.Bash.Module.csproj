@@ -8,7 +8,6 @@
     <RootNamespace>ConSim.Bash.Module</RootNamespace>
     <AssemblyName>ConSim.Bash.Module</AssemblyName>
     <ReleaseVersion>1.01</ReleaseVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <Description>A bash simulator module for ConSim. Forwards commands
 to bash and reads the error/standard output.</Description>
   </PropertyGroup>

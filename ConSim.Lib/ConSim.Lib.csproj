@@ -11,7 +11,6 @@
     <Description>A console simulator designed for education purposes, allows custom
 modules to be written for certain commands. The base version covers
 basic Windows cmd functions.</Description>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
