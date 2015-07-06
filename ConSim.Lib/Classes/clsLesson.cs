@@ -81,6 +81,16 @@ namespace Classes
     [IgnoreDataMember]
     public Classes.clsTask activeTask;
     /// <summary>
+    /// The last standard output from an attempt.
+    /// </summary>
+    [IgnoreDataMember]
+    public string lastStandardOutput = "";
+    /// <summary>
+    /// The last error output from an attempt.
+    /// </summary>
+    [IgnoreDataMember]
+    public string lastErrorOutput = "";
+    /// <summary>
     /// Tracks the array 
     /// </summary>
     [IgnoreDataMember]
@@ -131,7 +141,7 @@ namespace Classes
       try
       {
         return ModuleMap[m];
-      } catch (ArgumentOutOfRangeException ex) {
+      } catch (ArgumentOutOfRangeException) {
         throw new ArgumentOutOfRangeException ("ERROR: Module is not in the list of loaded modules");
       }
     }
@@ -157,7 +167,7 @@ namespace Classes
           return m;
       }
 
-      throw new ArgumentException ("ERROR: " + command +" not found!");
+      throw new ArgumentException ("ERROR: " + command + " not found!");
     }
 
     /// <summary>
@@ -239,9 +249,21 @@ namespace Classes
     /// <param name="args">Arguments.</param>
     public bool attemptTask(string command, string[] args)
     {
+      string disallowedArg = disallowedCheck (args);
+
+      if (disallowedArg != null) {
+        lastErrorOutput = "ERROR: Your command contains a disallowed argument: " + disallowedArg;
+        return false;
+      }
+
       Interfaces.iModule mod = this.cmdToiMod (command);
+
       mod.run (command, args);
+
       string comparison = mod.standardOutput ();
+
+      lastStandardOutput = mod.standardOutput ();
+      lastErrorOutput = mod.errorOutput ();
 
       if (isSandbox)
         return false;
@@ -271,6 +293,21 @@ namespace Classes
       throw new Exception ("An unknown exception ocurred in the lesson flow");
     } 
 
+    /// <summary>
+    /// Lists all available commands.
+    /// </summary>
+    /// <returns>The commands.</returns>
+    public List<string> availableCommands()
+    {
+      List<string> retval = new List<string> ();
+
+      foreach (Interfaces.iModule mod in LoadedModules) {
+        retval.AddRange (mod.Commands());
+      }
+
+      return retval;
+    }
+
     #endregion
 
     /* INTERNALS */
@@ -298,6 +335,21 @@ namespace Classes
       return LoadedModules;
     }
 
+    /// <summary>
+    /// Checks the arguments against the disallowed list
+    /// of the task.
+    /// </summary>
+    /// <returns>null if allowed, the problem argument if disallowed</returns>
+    /// <param name="args">Arguments.</param>
+    private string disallowedCheck(string[] args)
+    {
+      foreach (string s in args) {
+        if (activeTask.disallowedStrings.Contains (s))
+          return s;
+      }
+
+      return null;
+    }
     #endregion
   }
 }

@@ -7,7 +7,8 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ConSim.Shell</RootNamespace>
     <AssemblyName>ConSim.Shell</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ReleaseVersion>1.01</ReleaseVersion>
+    <Description>A Shell for running ConSim lessons in.</Description>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -19,6 +20,7 @@
     <WarningLevel>4</WarningLevel>
     <Externalconsole>true</Externalconsole>
     <PlatformTarget>x86</PlatformTarget>
+    <Commandlineparameters>-l "/Users/howardbeard-marlowe/Projects/ConSim/ConSim.NUnit/bin/Debug/Lessons/TestLesson/TestLesson.json"</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>full</DebugType>
@@ -37,4 +39,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\ConSim.Lib\ConSim.Lib.csproj">
+      <Project>{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}</Project>
+      <Name>ConSim.Lib</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
