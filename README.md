@@ -13,6 +13,7 @@ Features
  * Use the expected result field to control expected output used for passing tasks.
  * Can use the error output to compare to the expected output if you wish to demonstrate errors.
  * Can use the command itself as a comparison if you wish to just check the student put in the right command to pass the task.
+ * Sandbox mode allows you to have an open ended session not dependant on task completion. (Simply give a lesson with no tasks).
 
 Usage
 --------
@@ -62,9 +63,9 @@ Usage
 ---------
  The lesson itself only contains 2 datafields (Name & Version) they are pretty self explanatory:
 
- Name: Name of the lesson - shown in ConSim.Shell.
+ **Name**: Name of the lesson - shown in ConSim.Shell.
  
- Version: Version of the lesson - shown next to the name in ConSim.Shell.
+ **Version**: Version of the lesson - shown next to the name in ConSim.Shell.
 
 
  Allowed Modules
