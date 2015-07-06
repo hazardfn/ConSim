@@ -13,6 +13,7 @@ Features
  * Use the expected result field to control expected output used for passing tasks.
  * Can use the error output to compare to the expected output if you wish to demonstrate errors.
  * Can use the command itself as a comparison if you wish to just check the student put in the right command to pass the task.
+ * Sandbox mode allows you to have an open ended session not dependant on task completion. (Simply give a lesson with no tasks).
 
 Usage
 --------
