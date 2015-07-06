@@ -7,7 +7,8 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ConSim.Shell</RootNamespace>
     <AssemblyName>ConSim.Shell</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ReleaseVersion>1.01</ReleaseVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,4 +38,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\ConSim.Lib\ConSim.Lib.csproj">
+      <Project>{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}</Project>
+      <Name>ConSim.Lib</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

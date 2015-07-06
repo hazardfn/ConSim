@@ -14,8 +14,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FFD9A672-6EC3-479D-8F65-A294F6DC84F4}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
-		travis.yml = travis.yml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConSim.Shell", "ConSim.Shell\ConSim.Shell.csproj", "{C7345891-88D3-4FE7-8190-4CFE7C0B4DD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +40,10 @@ Global
 		{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}.Debug|x86.Build.0 = Debug|x86
 		{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}.Release|x86.ActiveCfg = Release|x86
 		{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}.Release|x86.Build.0 = Release|x86
+		{C7345891-88D3-4FE7-8190-4CFE7C0B4DD1}.Debug|x86.ActiveCfg = Debug|x86
+		{C7345891-88D3-4FE7-8190-4CFE7C0B4DD1}.Debug|x86.Build.0 = Debug|x86
+		{C7345891-88D3-4FE7-8190-4CFE7C0B4DD1}.Release|x86.ActiveCfg = Release|x86
+		{C7345891-88D3-4FE7-8190-4CFE7C0B4DD1}.Release|x86.Build.0 = Release|x86
 		{D6244E11-0886-4B01-B951-7D4972D6BFD1}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{D6244E11-0886-4B01-B951-7D4972D6BFD1}.Debug|x86.Build.0 = Debug|Any CPU
 		{D6244E11-0886-4B01-B951-7D4972D6BFD1}.Release|x86.ActiveCfg = Release|Any CPU
