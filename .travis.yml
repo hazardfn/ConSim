@@ -6,5 +6,5 @@ install:
 script:
   - xbuild /p:Configuration=Release ConSim.sln
   - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./ConSim.Bash.Module/bin/Release/ConSim.Bash.Module.dll
-  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./ConSim.NUnit/bin/Release/ConSim.NUnit.dll
   - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./ConSim.Windows.Module/bin/Release/ConSim.Windows.Module.dll
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./ConSim.NUnit/bin/Release/ConSim.NUnit.dll
