@@ -189,6 +189,7 @@ namespace ConSim.Shell
           
         // Lesson has been completed
         if (attemptTask && currentLesson.isSandbox == false) {
+          writeOutput ();
           Console.Write (nl + "Congratulations! You passed the lesson!");
         }
 
@@ -196,6 +197,7 @@ namespace ConSim.Shell
         if (attemptTask == false
             && currentLesson.isSandbox == false
             && task.Equals (currentLesson.activeTask) == false) {
+          writeOutput ();
           Console.Write (nl + "Congratulations! You passed this task!");
         }
 
@@ -203,18 +205,26 @@ namespace ConSim.Shell
         if (attemptTask == false
             && currentLesson.isSandbox == false
             && task.Equals (currentLesson.activeTask)) {
+
+          writeOutput ();
           Console.Write (nl + "Unfortunately this was not the expected output :(. Try Again!");
         }
-
-        if (currentLesson.lastStandardOutput != null)
-          Console.Write (currentLesson.lastStandardOutput + nl);
-        if (currentLesson.lastErrorOutput != null)
-          Console.Write (currentLesson.lastErrorOutput + nl);
+          
         if (currentLesson.isSandbox == false) {
           Console.ReadKey ();
           Console.Clear ();
+        } else {
+          writeOutput ();
         }
       }
+    }
+        
+    private static void writeOutput()
+    {
+      if (currentLesson.lastStandardOutput != null)
+        Console.Write (currentLesson.lastStandardOutput + nl);
+      if (currentLesson.lastErrorOutput != null)
+        Console.Write (currentLesson.lastErrorOutput + nl);
     }
   }
 }
