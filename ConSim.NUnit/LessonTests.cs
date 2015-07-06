@@ -58,6 +58,9 @@ namespace ConSim.NUnit
 
     /* TESTS */
     #region Tests
+    /// <summary>
+    /// Tests the sandbox lesson flow.
+    /// </summary>
     [Test ()]
     public void TestSandboxLessonFlow()
     {

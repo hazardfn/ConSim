@@ -40,6 +40,69 @@ namespace ConSim.Windows.Module
     /* TESTS */
     #region Tests
     /// <summary>
+    /// Tests the nslookup output.
+    /// </summary>
+    [Test ()]
+    public void TestNsLookupOutput()
+    {
+      Interfaces.iModule mod = new WindowsModule ();
+
+      string[] args = new string[1];
+      args [0] = "host";
+
+      mod.run ("nslookup", args);
+
+      // The return code may indicate
+      // the tests are not being run in an environment
+      // with cmd (e.g. Anything but Windows).
+      if (mod.returnCode() != 2) {
+        // Light check just to ensure some related output came back.
+        Assert.AreEqual (mod.standardOutput ().Contains ("Reply"), true);
+      }
+    }
+
+    /// <summary>
+    /// Tests the ping output.
+    /// </summary>
+    [Test ()]
+    public void TestPingOutput()
+    {
+      Interfaces.iModule mod = new WindowsModule ();
+
+      string[] args = new string[1];
+      args[0] = "127.0.0.1";
+
+      mod.run ("ping", args);
+
+      // The return code may indicate
+      // the tests are not being run in an environment
+      // with cmd (e.g. Anything but Windows).
+      if (mod.returnCode() != 2) {
+        // Light check just to ensure some related output came back.
+        Assert.AreEqual (mod.standardOutput ().Contains ("Address"), true);
+      }
+    }
+
+    [Test ()]
+    public void TestTracertOutput()
+    {
+      Interfaces.iModule mod = new WindowsModule ();
+
+      string[] args = new string[1];
+      args [0] = "127.0.0.1";
+
+      mod.run ("tracert", args);
+
+      // The return code may indicate
+      // the tests are not being run in an environment
+      // with cmd (e.g. Anything but Windows).
+      if (mod.returnCode() != 2) {
+        // Light check just to ensure some related output came back.
+        Assert.AreEqual (mod.standardOutput ().Contains ("tracing"), true);
+      }
+    }
+
+    /// <summary>
     /// Tests the help output.
     /// </summary>
     [Test ()]

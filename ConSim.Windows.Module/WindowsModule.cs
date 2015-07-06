@@ -98,6 +98,10 @@ namespace ConSim.Windows.Module
       commands.Add ("md");
       commands.Add ("mkdir");
       commands.Add ("rmdir");
+      commands.Add ("nslookup");
+      commands.Add ("ping");
+      commands.Add ("tracert");
+
 
       return commands;
     }
