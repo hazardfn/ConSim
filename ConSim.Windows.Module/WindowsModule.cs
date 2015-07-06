@@ -180,16 +180,25 @@ namespace ConSim.Windows.Module
       StreamReader sr = p.StandardOutput;
       StreamReader   srE = p.StandardError;
 
-      this.standardOutput = sr.ReadToEnd ();  
-      this.errorOutput = srE.ReadToEnd ();
+      while (sr.EndOfStream == false) {
+        string t = sr.ReadLine ();
+        this.standardOutput += t;
+        Console.WriteLine (t);
+      }
+
+      while (srE.EndOfStream == false) {
+        string t = srE.ReadLine ();
+        this.errorOutput += t;
+        Console.WriteLine (t);
+      }
 
       sr.Close ();
       srE.Close ();
       p.Close ();
 
-      if (errorOutput != "")
+      if (errorOutput != null)
         returnCode = -1;
-      if (errorOutput == "")
+      if (errorOutput == null)
         returnCode = 0;
     }
     #endregion
