@@ -59,7 +59,7 @@ Usage
  ```
 
  Lesson
- -------------
+---------
  The lesson itself only contains 2 datafields (Name & Version) they are pretty self explanatory:
 
  Name: Name of the lesson - shown in ConSim.Shell.
@@ -68,7 +68,7 @@ Usage
 
 
  Allowed Modules
- -------------
+----------
  Allowed modules is an array, multiple entries can be added using the following fields:
 
  __type: You should not change, this is so the json deserializer knows the type to deserialize to.
@@ -79,7 +79,7 @@ Usage
 
 
  Tasks
- -------------
+----------
  Tasks is also an array and is where the main portion of the activities are defined, see below for field documentation:
 
  __type: You should not change, this is so the json deserializer knows the type to deserialize to.
@@ -100,8 +100,8 @@ Usage
  
  lazyMatching: Set to true if you just want to match part of the output (can be combined with command and error to task).
 
- Loading the TestLesson
- --------
+Loading the TestLesson
+--------
  Loading the test lesson with ConSim can be a good way for you to experiment and see how things work. Simply open a  terminal and type the following:
 
  ```
