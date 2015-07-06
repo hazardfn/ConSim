@@ -62,9 +62,9 @@ Usage
 ---------
  The lesson itself only contains 2 datafields (Name & Version) they are pretty self explanatory:
 
- Name: Name of the lesson - shown in ConSim.Shell.
+ **Name**: Name of the lesson - shown in ConSim.Shell.
  
- Version: Version of the lesson - shown next to the name in ConSim.Shell.
+ **Version**: Version of the lesson - shown next to the name in ConSim.Shell.
 
 
  Allowed Modules
