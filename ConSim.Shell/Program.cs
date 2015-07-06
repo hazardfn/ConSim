@@ -22,6 +22,7 @@
 /* INCLUDES */
 #region Includes
 using System;
+using System.IO;
 using System.Reflection;
 using Classes;
 #endregion
@@ -78,7 +79,21 @@ namespace ConSim.Shell
 
     private static clsLesson getLesson(string lessonJSON)
     {
-      return new clsLesson(lessonJSON);
+      // If you don't provide a full path
+      // to clsLesson it errors out due 
+      // to a requirement of loadAssembly
+      try {
+        return new clsLesson(lessonJSON);
+      } catch (ArgumentException ex) {
+        FileInfo f;
+
+        if(File.Exists(lessonJSON)) {
+          f = new FileInfo (lessonJSON);
+          return new clsLesson (f.FullName);
+        }
+
+        throw ex;
+      }
     }
 
     private static string getAllowedCommands()
