@@ -63,7 +63,7 @@ namespace Classes
     /// A collection of tasks that make the lesson.
     /// </summary>
     [DataMember]
-    private readonly List<Classes.clsTask> Tasks;
+    public readonly List<Classes.clsTask> Tasks;
     /// <summary>
     /// The loaded modules.
     /// </summary>
@@ -171,7 +171,7 @@ namespace Classes
           return m;
       }
 
-      throw new ArgumentException ("ERROR: command" + command + " not found!");
+      throw new ArgumentException ("ERROR: command " + command + " not found!");
     }
 
     /// <summary>

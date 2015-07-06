@@ -24,6 +24,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Collections;
 using System.Diagnostics;
 using System.ComponentModel;
@@ -107,6 +108,33 @@ namespace ConSim.Windows.Module
     }
 
     /// <summary>
+    /// Some commands will never finish
+    /// outputting causing an infinite loop
+    /// that's bad.
+    /// 
+    /// This is temporary until I think of a 
+    /// better way to handle it.
+    /// </summary>
+    /// <value>True if unsupported.</value>
+    private bool unsupportedCommand (string cmdandargs)
+    {
+      List<string> unsupported = new List<string> ();
+
+      unsupported.Add (@"nslookup -");
+      unsupported.Add (@"^nslookup$");
+      unsupported.Add (@"ping -t");
+
+      foreach (string s in unsupported) {
+        Regex rex = new Regex (s);
+
+        if (rex.IsMatch(cmdandargs))
+          return true;
+      }
+
+      return false;
+    }
+
+    /// <summary>
     /// Gets the version of the module
     /// </summary>
     /// <returns>The module version.</returns>
@@ -122,6 +150,14 @@ namespace ConSim.Windows.Module
     /// <param name="args">Arguments.</param>
     void Interfaces.iModule.run (string command, string[] args)
     {
+      string preppedArgs = prepareArguments (command, args);
+
+      if (unsupportedCommand(preppedArgs))
+      {
+        errorOutput = "This command is unsupported by the module";
+        return;
+      }
+
       string filename = @"cmd.exe";
       string arguments = "/C " + prepareArguments (command, args);
 

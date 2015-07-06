@@ -36,6 +36,12 @@ namespace ConSim.Shell
 
     public static void Main (string[] args)
     {
+
+      if (args.Length == 0) {
+        Console.Write (help ());
+        return;
+      }
+
       switch (args [0].ToString().Trim()) {
       case "-l":
         currentLesson = getLesson (args [1].ToString ());
@@ -115,7 +121,7 @@ namespace ConSim.Shell
     {
       if (currentLesson.isSandbox == false) {
         return
-        @"Lesson: " + currentLesson.Name + " " + currentLesson.Version + nl
+        nl + @"Lesson: " + currentLesson.Name + " " + currentLesson.Version + nl
         + @"------------------------------------------------------------" + nl + nl
         + @"Current Task: " + currentLesson.activeTask.Name + nl
         + @"---" + nl
@@ -126,7 +132,7 @@ namespace ConSim.Shell
       }
 
       return
-      @"Lesson: " + currentLesson.Name + " " + currentLesson.Version + nl
+      nl + @"Lesson: " + currentLesson.Name + " " + currentLesson.Version + nl
       + @"------------------------------------------------------------" + nl + nl
       + @"Avail. Commands: " + getAvailableCommands ();
     }
