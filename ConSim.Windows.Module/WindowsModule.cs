@@ -155,6 +155,7 @@ namespace ConSim.Windows.Module
       if (unsupportedCommand(preppedArgs))
       {
         errorOutput = "This command is unsupported by the module";
+        Console.WriteLine (errorOutput);
         return;
       }
 

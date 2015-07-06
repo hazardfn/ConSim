@@ -261,6 +261,8 @@ namespace Classes
 
       if (disallowedArg != null) {
         lastErrorOutput = "ERROR: Your command contains a disallowed argument: " + disallowedArg;
+        Console.WriteLine (lastErrorOutput);
+
         return false;
       }
 
