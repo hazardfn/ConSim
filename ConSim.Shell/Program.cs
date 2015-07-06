@@ -180,6 +180,7 @@ namespace ConSim.Shell
         string command = line [0];
         string[] args = filterLine (line);
         bool attemptTask = false;
+        bool boolBreak = false;
 
         try {
           attemptTask = currentLesson.attemptTask (command, args);
@@ -191,6 +192,7 @@ namespace ConSim.Shell
         if (attemptTask && currentLesson.isSandbox == false) {
           writeOutput ();
           Console.Write (nl + "Congratulations! You passed the lesson!");
+          boolBreak = true;
         }
 
         // Task was completed but still more tasks to go
@@ -216,6 +218,9 @@ namespace ConSim.Shell
         } else {
           writeOutput ();
         }
+
+        if (boolBreak)
+          break;
       }
     }
         
