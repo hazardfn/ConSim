@@ -14,10 +14,9 @@ Features
  * Can use the error output to compare to the expected output if you wish to demonstrate errors.
  * Can use the command itself as a comparison if you wish to just check the student put in the right command to pass the task.
 
- Usage
- --------
- You may choose to use ConSim.Shell as your basic interpreter or write a more personalised one for your environment, regardless
- the file structure must be as follows:
+Usage
+--------
+ You may choose to use ConSim.Shell as your basic interpreter or write a more personalised one for your environment,  regardless, the file structure must be as follows:
 
  ```
  => Lesson
@@ -90,14 +89,13 @@ Features
  errorToTask: Set to true if your expected result analysis is on an error that should be returned as opposed to the output.
  lazyMatching: Set to true if you just want to match part of the output (can be combined with command and error to task).
 
- Usage
+ Loading the TestLesson
  --------
- Loading the test lesson with ConSim can be a good way for you to experiment and see how things work. Simply open a terminal
- and type the following:
+ Loading the test lesson with ConSim can be a good way for you to experiment and see how things work. Simply open a  terminal and type the following:
 
  ```
  ConSim.Shell.exe -l "ConSim.NUnit/bin/[Release | Debug]/Lessons/TestLesson/TestLesson.json"
  ```
  ![Example](http://imageshack.com/a/img673/3586/A1RBZ2.png)
 
- The expected result is 2, the test module increments an argument by 1 so supplying the command "increment 1" should pass the task.
+ The expected result is 2, the test module increments an argument by 1 so supplying the command "increment 1" should  pass the task.
