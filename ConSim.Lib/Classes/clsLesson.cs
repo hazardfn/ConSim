@@ -167,7 +167,7 @@ namespace Classes
           return m;
       }
 
-      throw new ArgumentException ("ERROR: " + command + " not found!");
+      throw new ArgumentException ("ERROR: command" + command + " not found!");
     }
 
     /// <summary>
@@ -249,6 +249,10 @@ namespace Classes
     /// <param name="args">Arguments.</param>
     public bool attemptTask(string command, string[] args)
     {
+
+      lastStandardOutput = "";
+      lastErrorOutput = "";
+
       string disallowedArg = disallowedCheck (args);
 
       if (disallowedArg != null) {

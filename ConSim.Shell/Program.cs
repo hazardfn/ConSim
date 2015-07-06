@@ -144,12 +144,20 @@ namespace ConSim.Shell
 
         Console.Write (lessonHeader() + nl + nl);
         Console.Write (">");
+
         string[] line = Console.ReadLine ().Split (' ');
         string command = line [0];
         string[] args = filterLine (line);
+        bool attemptTask = false;
+
+        try {
+          attemptTask = currentLesson.attemptTask (command, args);
+        } catch (Exception ex) {
+          currentLesson.lastErrorOutput = ex.Message;
+        }
 
         // Lesson has been completed
-        if (currentLesson.attemptTask (command, args)) {
+        if (attemptTask) {
           if (currentLesson.lastStandardOutput != null)
             Console.Write (currentLesson.lastStandardOutput + nl);
           if (currentLesson.lastErrorOutput != null)
@@ -162,7 +170,7 @@ namespace ConSim.Shell
         }
 
         // Task was completed but still more tasks to go
-        if (currentLesson.attemptTask (command, args) == false
+        if (attemptTask == false
             && task.Equals (currentLesson.activeTask) == false) {
           if (currentLesson.lastStandardOutput != null)
             Console.Write (currentLesson.lastStandardOutput + nl);
@@ -175,7 +183,7 @@ namespace ConSim.Shell
         }
 
         // Attempt was unsuccessful
-        if (currentLesson.attemptTask (command, args) == false
+        if (attemptTask == false
             && task.Equals (currentLesson.activeTask)) {
           if (currentLesson.lastStandardOutput != null)
             Console.Write (currentLesson.lastStandardOutput + nl);
