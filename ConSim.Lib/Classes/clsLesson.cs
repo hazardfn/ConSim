@@ -115,7 +115,7 @@ namespace Classes
     /// </summary>
     /// <value><c>true</c> if is sandbox; otherwise, <c>false</c>.</value>
     [IgnoreDataMember]
-    private bool isSandbox {
+    public bool isSandbox {
       get {
         return Tasks.Count == 0;
       }
@@ -155,6 +155,10 @@ namespace Classes
     {
       
       foreach(Interfaces.iModule m in LoadedModules) {
+
+        // Sandbox mode support.
+        if (m.Commands ().Contains (command) && isSandbox)
+          return m;
 
         // If the module contains the command and it exists
         // in the allowed commands for the task return it.
@@ -206,8 +210,8 @@ namespace Classes
           
         try {
           this.activeTask = this.Tasks[0];
-        } catch (IndexOutOfRangeException) {
-          throw new IndexOutOfRangeException ("WARNING: No tasks in this lesson, sandbox mode is active!");
+        } catch (Exception) {
+          //WARNING: No tasks in this lesson, sandbox mode is active!
         }
   
         }
@@ -235,8 +239,8 @@ namespace Classes
 
       try {
         this.activeTask = this.Tasks [0];
-      } catch (IndexOutOfRangeException) {
-        throw new IndexOutOfRangeException ("WARNING: No tasks in this lesson, sandbox mode is active!");
+      } catch (Exception) {
+        //WARNING: No tasks in this lesson, sandbox mode is active!
       }
     }
 
@@ -347,6 +351,9 @@ namespace Classes
     /// <param name="args">Arguments.</param>
     private string disallowedCheck(string[] args)
     {
+      if (activeTask == null)
+        return null;
+
       foreach (string s in args) {
         if (activeTask.disallowedStrings.Contains (s))
           return s;

@@ -113,16 +113,22 @@ namespace ConSim.Shell
 
     private static string lessonHeader()
     {
-      return
+      if (currentLesson.isSandbox == false) {
+        return
         @"Lesson: " + currentLesson.Name + " " + currentLesson.Version + nl
-      + @"------------------------------------------------------------" + nl + nl
-      + @"Current Task: " + currentLesson.activeTask.Name + nl
-      + @"---" + nl
-      + currentLesson.activeTask.ShortDescription + nl
-      + currentLesson.activeTask.LongDescription + nl
-      + @"Avail. Commands: " + getAvailableCommands () + nl
-      + @"Allowed Commands: " + getAllowedCommands ();
+        + @"------------------------------------------------------------" + nl + nl
+        + @"Current Task: " + currentLesson.activeTask.Name + nl
+        + @"---" + nl
+        + currentLesson.activeTask.ShortDescription + nl
+        + currentLesson.activeTask.LongDescription + nl
+        + @"Avail. Commands: " + getAvailableCommands () + nl
+        + @"Allowed Commands: " + getAllowedCommands ();
+      }
 
+      return
+      @"Lesson: " + currentLesson.Name + " " + currentLesson.Version + nl
+      + @"------------------------------------------------------------" + nl + nl
+      + @"Avail. Commands: " + getAvailableCommands ();
     }
 
     private static string[] filterLine(string[] line) {
@@ -140,9 +146,13 @@ namespace ConSim.Shell
     private static void lessonLoop() {
       while (true == true) {
 
-        clsTask task = currentLesson.activeTask;
+        clsTask task = null; 
 
-        Console.Write (lessonHeader() + nl + nl);
+        if (currentLesson.isSandbox == false) {
+          task = currentLesson.activeTask;
+        }
+
+        Console.Write (lessonHeader () + nl + nl);
         Console.Write (">");
 
         string[] line = Console.ReadLine ().Split (' ');
@@ -155,45 +165,33 @@ namespace ConSim.Shell
         } catch (Exception ex) {
           currentLesson.lastErrorOutput = ex.Message;
         }
-
+          
         // Lesson has been completed
-        if (attemptTask) {
-          if (currentLesson.lastStandardOutput != null)
-            Console.Write (currentLesson.lastStandardOutput + nl);
-          if (currentLesson.lastErrorOutput != null)
-            Console.Write (currentLesson.lastErrorOutput + nl);
-
+        if (attemptTask && currentLesson.isSandbox == false) {
           Console.Write (nl + "Congratulations! You passed the lesson!");
-          Console.ReadKey ();
-          Console.Clear ();
-          break;
         }
 
         // Task was completed but still more tasks to go
         if (attemptTask == false
+            && currentLesson.isSandbox == false
             && task.Equals (currentLesson.activeTask) == false) {
-          if (currentLesson.lastStandardOutput != null)
-            Console.Write (currentLesson.lastStandardOutput + nl);
-          if (currentLesson.lastErrorOutput != null)
-            Console.Write (currentLesson.lastErrorOutput + nl);
-
           Console.Write (nl + "Congratulations! You passed this task!");
-          Console.ReadKey ();
-          Console.Clear ();
         }
 
         // Attempt was unsuccessful
         if (attemptTask == false
+            && currentLesson.isSandbox == false
             && task.Equals (currentLesson.activeTask)) {
-          if (currentLesson.lastStandardOutput != null)
-            Console.Write (currentLesson.lastStandardOutput + nl);
-          if (currentLesson.lastErrorOutput != null)
-            Console.Write (currentLesson.lastErrorOutput + nl);
-
           Console.Write (nl + "Unfortunately this was not the expected output :(. Try Again!");
+        }
+
+        if (currentLesson.lastStandardOutput != null)
+          Console.Write (currentLesson.lastStandardOutput + nl);
+        if (currentLesson.lastErrorOutput != null)
+          Console.Write (currentLesson.lastErrorOutput + nl);
+        if (currentLesson.isSandbox == false) {
           Console.ReadKey ();
           Console.Clear ();
-
         }
       }
     }

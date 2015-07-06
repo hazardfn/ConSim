@@ -35,10 +35,12 @@ namespace ConSim.NUnit
   {
     /* Location Variables */
     #region Location Variables
-    private static readonly string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-    private static readonly string taskJSON             = baseDirectory + "/Lessons/TestLesson/Tasks/TestTask.json";
-    private static readonly string lessonJSON           = baseDirectory + "/Lessons/TestLesson/TestLesson.json";
-    private static readonly string lessonDir     = Path.GetDirectoryName (lessonJSON);
+    private static readonly string baseDirectory     = AppDomain.CurrentDomain.BaseDirectory;
+    private static readonly string taskJSON          = baseDirectory + "/Lessons/TestLesson/Tasks/TestTask.json";
+    private static readonly string lessonJSON        = baseDirectory + "/Lessons/TestLesson/TestLesson.json";
+    private static readonly string sandboxLessonJSON = baseDirectory + "/Lessons/TestSandboxLesson/TestSandboxLesson.json";
+    private static readonly string lessonDir         = Path.GetDirectoryName (lessonJSON);
+    private static readonly string sandboxLessonDir  = Path.GetDirectoryName (sandboxLessonJSON);
     #endregion
 
     /* Test Variables */
@@ -48,12 +50,45 @@ namespace ConSim.NUnit
     private static readonly string ModuleType = "Modules.TestModule";
     private static readonly string DLLName    = "ConSim.Test.Module.dll";
 
+    private static readonly string lessonModule = lessonDir + "/Modules/" + DLLName;
+
     private static readonly Classes.clsTask task     = new Classes.clsTask(taskJSON);
     private static readonly Classes.clsModule module = new Classes.clsModule(ModuleType, DLLName);
     #endregion
 
     /* TESTS */
     #region Tests
+    [Test ()]
+    public void TestSandboxLessonFlow()
+    {
+      // Copy the module file for sandbox tests
+      if (Directory.Exists (sandboxLessonDir + "/Modules/") == false)
+        Directory.CreateDirectory (sandboxLessonDir + "/Modules/");
+      
+      File.Copy (lessonModule, sandboxLessonDir + "/Modules/" + DLLName, true);
+
+      List<Classes.clsTask> Tasks = new List<Classes.clsTask> ();
+      List<Classes.clsModule> AllowedModules = new List<Classes.clsModule> ();
+
+      AllowedModules.Add (module);
+
+      Classes.clsLesson lesson = new Classes.clsLesson (Name, Version, Tasks, AllowedModules, sandboxLessonDir);
+      lesson.save (sandboxLessonJSON);
+
+      lesson = new Classes.clsLesson (sandboxLessonJSON);
+
+      string[] args = new string[1];
+
+      //Test multiple commands and ensure the expected output
+      args[0] = "1";
+      Assert.AreEqual(lesson.attemptTask("increment", args), false);
+      Assert.AreEqual (lesson.lastStandardOutput, "2");
+      args[0] = "random";
+      Assert.AreEqual (lesson.attemptTask ("increment", args), false);
+      Assert.AreEqual (lesson.lastErrorOutput, "Unexpected format in arguments");
+    }
+
+
     /// <summary>
     /// Tests the lesson write functionality.
     /// </summary>
