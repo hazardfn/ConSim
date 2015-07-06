@@ -1,4 +1,4 @@
-# Overview  [Travis-CI](https://travis-ci.org/hazardfn/ConSim) :: ![Build Status](https://travis-ci.org/hazardfn/ConSim.svg)
+# Overview | [Travis-CI](https://travis-ci.org/hazardfn/ConSim) :: ![Build Status](https://travis-ci.org/hazardfn/ConSim.svg)
 --------
 ConSim is a Console Simulator for education purposes - this suite allows you to create lessons with a group of tasks and use them
 to illustrate the versaility of a terminal in a closed and controlled environment.
@@ -19,10 +19,12 @@ Features
  You may choose to use ConSim.Shell as your basic interpreter or write a more personalised one for your environment, regardless
  the file structure must be as follows:
 
+ ```
  => Lesson
  ==> Lesson.json
  ==> Modules
  ===> [Module DLL's]
+ ```
 
  Lesson.json looks like so:
 
