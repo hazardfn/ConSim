@@ -65,6 +65,16 @@ namespace Classes
     [DataMember]
     public readonly List<string> allowedCommands;
     /// <summary>
+    /// A list of disallowed strings that can be embedded within other commands
+    /// for example: IF exists 'dir' (echo 'dir') contains the following
+    /// commands: IF, exists, echo - echo might not appear in the allowed
+    /// commands list but this would be allowed if IF appeared in the list.
+    /// 
+    /// If you add echo in this list this command would not be run.
+    /// </summary>
+    [DataMember]
+    public readonly List<string> disallowedStrings;
+    /// <summary>
     /// If lazy matching is true you can check if the output
     /// contains the expected result.
     /// </summary>
@@ -150,7 +160,7 @@ namespace Classes
     public clsTask (string Name, string ShortDescription, string LongDescription, 
       object ExpectedResult, bool lazyMatching = false, 
       bool commandToTask = false, bool errorToTask = false,
-      List<string> allowedCommands = null)
+      List<string> allowedCommands = null, List<string> disallowedStrings = null)
     {
       this.ExpectedResult  = ExpectedResult;
       this.LongDescription = LongDescription;
@@ -160,10 +170,12 @@ namespace Classes
       this.commandToTask = commandToTask;
       this.errorToTask = errorToTask;
       this.allowedCommands = allowedCommands;
+      this.disallowedStrings = disallowedStrings;
 
-      if (this.allowedCommands == null) {
+      if (this.allowedCommands == null)
         this.allowedCommands = new List<string> ();
-      }
+      if (this.disallowedStrings == null)
+        this.disallowedStrings = new List<string> ();
     }
       
     #endregion
