@@ -66,12 +66,10 @@ namespace ConSim.NUnit
     }
 
     private void onStandardChange(object sender, iModuleOutputEventArgs e) {
-      ConSim.Lib.Interfaces.iModule testMod = (ConSim.Lib.Interfaces.iModule)sender;
       Assert.AreEqual (e.output.ToString(), "2");
     }
 
     private void onErrorChange(object sender, iModuleOutputEventArgs e) {
-      ConSim.Lib.Interfaces.iModule testMod = (ConSim.Lib.Interfaces.iModule)sender;
       Assert.AreEqual (e.output.ToString(), "Unexpected format in arguments");
     }
 
