@@ -19,9 +19,9 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Externalconsole>true</Externalconsole>
     <PlatformTarget>x86</PlatformTarget>
-    <Commandlineparameters>-l "C:\Users\IEUser\ConSim\LessonEditorTest\winSandboxSim.json"</Commandlineparameters>
+    <Commandlineparameters>-l "C:\Users\IEUser\ConSim\ConSim.NUnit\bin\Debug\Lessons\TestLesson\TestLesson.json"</Commandlineparameters>
+    <Externalconsole>true</Externalconsole>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>full</DebugType>
@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
     <Externalconsole>true</Externalconsole>
     <PlatformTarget>x86</PlatformTarget>
+    <Commandlineparameters>-l "C:\Users\IEUser\ConSim\ConSim.NUnit\bin\Release\Lessons\TestLesson\TestLesson.json"</Commandlineparameters>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -45,8 +46,5 @@
       <Project>{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}</Project>
       <Name>ConSim.Lib</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
 </Project>

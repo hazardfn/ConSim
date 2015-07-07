@@ -50,9 +50,8 @@ namespace ConSim.Windows.Module
       set {
         standardoutput += (value);
 
-        EventHandler<iModuleOutputEventArgs> handler = onStandardOutputChange;
-        if (handler != null) {
-          handler (this, new iModuleOutputEventArgs (value));
+        if (onStandardOutputChange != null) {
+          onStandardOutputChange (this, new iModuleOutputEventArgs (value));
         }
       }
     }
@@ -65,9 +64,8 @@ namespace ConSim.Windows.Module
       set {
         erroroutput += (value);
 
-        EventHandler<iModuleOutputEventArgs> handler = onErrorOutputChange;
-        if (handler != null) {
-          handler (this, new iModuleOutputEventArgs (value));
+        if (onErrorOutputChange != null) {
+          onErrorOutputChange (this, new iModuleOutputEventArgs (value));
         }
       }
     }
@@ -81,9 +79,8 @@ namespace ConSim.Windows.Module
       set {
         resultcode = value;
 
-        EventHandler<iModuleOutputEventArgs> handler = onResultCodeChange;
-        if (handler != null) {
-          handler (this, new iModuleOutputEventArgs(value));
+        if (onResultCodeChange != null) {
+          onResultCodeChange (this, new iModuleOutputEventArgs(value));
         }
       }
     }
@@ -246,7 +243,8 @@ namespace ConSim.Windows.Module
       srE.Close ();
       p.Close ();
 
-      if (ErrorOutput != null)
+
+      if (ErrorOutput != "")
         ResultCode = -1;
       if (ErrorOutput == null || ErrorOutput == "")
         ResultCode = 0;
@@ -267,7 +265,7 @@ namespace ConSim.Windows.Module
     /// Occurs when error output is changed.
     /// </summary>
     event EventHandler<iModuleOutputEventArgs> iModule.errorOutputChanged {
-      add {
+      add {        
         onErrorOutputChange += value;
       }
       remove {

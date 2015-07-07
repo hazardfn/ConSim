@@ -148,7 +148,13 @@ namespace ConSim.Lib.Classes
         this.commandToTask = newTask.commandToTask;
         this.errorToTask = newTask.errorToTask;
         this.allowedCommands = newTask.allowedCommands;
+        this.disallowedStrings = newTask.disallowedStrings;
 
+        if (this.allowedCommands == null)
+          this.allowedCommands = new List<string> ();
+        if (this.disallowedStrings == null)
+          this.disallowedStrings = new List<string> ();
+        
         f.Close ();
       }
     }

@@ -83,18 +83,12 @@ namespace ConSim.Shell
       // If you don't provide a full path
       // to clsLesson it errors out due 
       // to a requirement of loadAssembly
-      try {
-        return new ConSim.Lib.Classes.clsLesson (lessonJSON);
-      } catch (ArgumentException ex) {
-        FileInfo f;
-
-        if(File.Exists(lessonJSON)) {
-          f = new FileInfo (lessonJSON);
-          return new ConSim.Lib.Classes.clsLesson (f.FullName);
-        }
-
-        throw ex;
+      if (File.Exists (lessonJSON)) {
+        FileInfo f = new FileInfo (lessonJSON);
+        return new ConSim.Lib.Classes.clsLesson (f.FullName);
       }
+
+      throw new FileNotFoundException ("Could not find: " + lessonJSON);
     }
 
     private static string getAllowedCommands()
@@ -191,6 +185,11 @@ namespace ConSim.Shell
           mod.resultCodeChanged += new EventHandler<iModuleOutputEventArgs>(onResultChange);
 
           attemptTask = currentLesson.attemptTask (command, args, mod);
+
+          mod.errorOutputChanged -= onErrorOutputChange;
+          mod.standardOutputChanged -= onStandardOutputChange;
+          mod.resultCodeChanged -= onResultChange;
+
         } catch (Exception ex) {
           currentLesson.lastErrorOutput = ex.Message;
           Console.WriteLine (nl + ex.Message);

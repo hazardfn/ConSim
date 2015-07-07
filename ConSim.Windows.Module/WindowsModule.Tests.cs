@@ -27,6 +27,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using ConSim.Lib.Interfaces;
+using ConSim.Lib.Events;
 #endregion
 
 namespace ConSim.Windows.Module
@@ -37,6 +38,16 @@ namespace ConSim.Windows.Module
 
     /* Test Variables */
     private static readonly string testDir = AppDomain.CurrentDomain.BaseDirectory + "testdir";
+
+    private static string output;
+
+    private void onStandardChange(object sender, iModuleOutputEventArgs e) {
+      output += e.output.ToString();
+    }
+
+    private void onErrorChange(object sender, iModuleOutputEventArgs e) {
+      output += e.output.ToString();
+    }
 
     /* TESTS */
     #region Tests
