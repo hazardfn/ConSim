@@ -32,7 +32,7 @@ using System.Runtime.Serialization.Json;
 
 #endregion
 
-namespace Classes
+namespace ConSim.Lib.Classes
 {
   /// <summary>
   /// A module configuration file

@@ -28,11 +28,12 @@ using System.Collections;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Collections.Generic;
+using ConSim.Lib.Interfaces;
 #endregion
 
 namespace ConSim.Bash.Module
 {
-  public class BashModule : Interfaces.iModule
+  public class BashModule : iModule
   {
 
     /* API */
@@ -41,48 +42,94 @@ namespace ConSim.Bash.Module
     /// <summary>
     /// The standard output.
     /// </summary>
-    string standardOutput;
+    private string standardoutput;
+    string StandardOutput {
+      get { return standardoutput; }
+      set {
+        standardoutput = value;
+
+        EventHandler handler = onStandardOutputChange;
+        if (handler != null) {
+          handler (this, new EventArgs ());
+        }
+      }
+    }
     /// <summary>
     /// The error output.
     /// </summary>
-    string errorOutput;
+    private string erroroutput;
+    string ErrorOutput {
+      get { return erroroutput; }
+      set {
+        erroroutput = value;
+
+        EventHandler handler = onErrorOutputChange;
+        if (handler != null) {
+          handler (this, new EventArgs ());
+        }
+      }
+    }
     /// <summary>
     /// The return code.
     /// </summary>
-    int returnCode;
+    private int resultcode;
+    int ResultCode
+    {
+      get { return resultcode; }
+      set {
+        resultcode = value;
+
+        EventHandler handler = onResultCodeChange;
+        if (handler != null) {
+          handler (this, new EventArgs ());
+        }
+      }
+    }
+    /// <summary>
+    /// Occurs on standard output change.
+    /// </summary>
+    event EventHandler onStandardOutputChange;
+    /// <summary>
+    /// Occurs when error output change.
+    /// </summary>
+    event EventHandler onErrorOutputChange;
+    /// <summary>
+    /// Occurs on result code change.
+    /// </summary>
+    event EventHandler onResultCodeChange;
 
     /// <summary>
-    /// The standard output.
+    /// Standard output.
     /// </summary>
-    /// <returns>The standard output.</returns>
-    string Interfaces.iModule.standardOutput ()
+    /// <returns>The output.</returns>
+    string iModule.standardOutput ()
     {
-      return standardOutput;
+      return StandardOutput;
     }
 
     /// <summary>
-    /// The error output.
+    /// Error output.
     /// </summary>
     /// <returns>The error output.</returns>
-    string Interfaces.iModule.errorOutput ()
+    string iModule.errorOutput ()
     {
-      return errorOutput;
+      return ErrorOutput;
     }
 
     /// <summary>
-    /// Process return code.
+    /// Returns the exit code.
     /// </summary>
-    /// <returns>The return code.</returns>
-    int Interfaces.iModule.returnCode ()
+    /// <returns>The exit code.</returns>
+    int iModule.resultCode ()
     {
-      return returnCode;
+      return ResultCode;
     }
 
     /// <summary>
     /// Gets the name of the module.
     /// </summary>
     /// <returns>The name.</returns>
-    string Interfaces.iModule.getName ()
+    string iModule.getName ()
     {
       return "Interface for Bash";
     }
@@ -90,7 +137,7 @@ namespace ConSim.Bash.Module
     /// <summary>
     /// Returns a list of commands supported by this module.
     /// </summary>
-    List<string> Interfaces.iModule.Commands ()
+    List<string> iModule.Commands ()
     {
       List<string> commands = new List<string> ();
 
@@ -106,7 +153,7 @@ namespace ConSim.Bash.Module
     /// Gets the version of the module.
     /// </summary>
     /// <returns>The module version.</returns>
-    string Interfaces.iModule.getVersion ()
+    string iModule.getVersion ()
     {
       return "1.0.0";
     }
@@ -116,7 +163,7 @@ namespace ConSim.Bash.Module
     /// </summary>
     /// <param name="command">Command.</param>
     /// <param name="args">Arguments.</param>
-    void Interfaces.iModule.run (string command, string[] args)
+    void iModule.run (string command, string[] args)
     {
       string filename = "/bin/bash";
       string arguments = "-c " + prepareArguments (command, args);
@@ -134,7 +181,7 @@ namespace ConSim.Bash.Module
         //This return code will pass the tests
         //When running in other environments
         if (notSupported(ex.NativeErrorCode)) {
-          returnCode = 2;
+          ResultCode = 2;
           return;
         } else {
           throw ex;
@@ -142,19 +189,60 @@ namespace ConSim.Bash.Module
       }
 
       p.WaitForExit ();
-      returnCode = p.ExitCode;
+      ResultCode = p.ExitCode;
 
       StreamReader sr = p.StandardOutput;
       StreamReader srE = p.StandardError;
 
-      standardOutput = sr.ReadToEnd ();
-      errorOutput = sr.ReadToEnd ();
+      while (sr.EndOfStream == false) {
+        string t = sr.ReadLine ();
+        this.StandardOutput = t;
+      }
+
+      while (srE.EndOfStream == false) {
+        string t = srE.ReadLine ();
+        this.ErrorOutput = t;
+      }
 
       sr.Close ();
       srE.Close ();
       p.Close ();
     }
 
+
+    /// <summary>
+    /// Occurs when standard output is changed.
+    /// </summary>
+    event EventHandler iModule.standardOutputChanged {
+      add {
+        onStandardOutputChange += value;
+      }
+      remove {
+        onStandardOutputChange -= value;
+      }
+    }
+    /// <summary>
+    /// Occurs when error output is changed.
+    /// </summary>
+    event EventHandler iModule.errorOutputChanged {
+      add {
+        onErrorOutputChange += value;
+      }
+      remove {
+        onErrorOutputChange -= value;
+      }
+    }
+    /// <summary>
+    /// Occurs when result code is changed.
+    /// </summary>
+    event EventHandler iModule.resultCodeChanged {
+      add {
+        onResultCodeChange += value;
+      }
+      remove {
+        onResultCodeChange -= value;
+      }
+    }
     #endregion
 
     /* INTERNALS */

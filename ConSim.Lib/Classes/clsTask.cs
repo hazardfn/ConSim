@@ -29,7 +29,7 @@ using System.Runtime.Serialization.Json;
 
 #endregion
 
-namespace Classes
+namespace ConSim.Lib.Classes
 {
   /// <summary>
   /// Represents a task within a lesson.
@@ -104,11 +104,15 @@ namespace Classes
     /// <returns><c>true</c>, if passed, <c>false</c> otherwise.</returns>
     /// <param name="result">Result.</param>
     public bool hasPassed(object result) {
-      if (lazyMatching)
-        return result.ToString ().Contains (ExpectedResult.ToString());
-      if(Convert.ChangeType(ExpectedResult, result.GetType()).Equals(result))
-        return true;
-      
+      try {
+        if (lazyMatching)
+         return result.ToString ().Contains (ExpectedResult.ToString());
+        if(Convert.ChangeType(ExpectedResult, result.GetType()).Equals(result))
+         return true;
+      } catch (NullReferenceException) {
+        return false;
+      }
+
       return false;
     }
 

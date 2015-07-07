@@ -29,7 +29,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 #endregion
 
-namespace Interfaces
+namespace ConSim.Lib.Interfaces
 {
   /// <summary>
   /// Represents a pluggable DLL which exposes 
@@ -57,22 +57,31 @@ namespace Interfaces
     /// Runs the module when supplied with a list of args.
     /// </summary>
     /// <param name="args">Arguments.</param>
-    void run(string command, string[] args); 
+    void run(string command, string[] args);
     /// <summary>
-    /// Returns the output of the command last run.
+    /// Occurs when standard output changed.
     /// </summary>
-    /// <returns>The output.</returns>
+    event EventHandler standardOutputChanged;
+    /// <summary>
+    /// Occurs when error output changed.
+    /// </summary>
+    event EventHandler errorOutputChanged;
+    /// <summary>
+    /// The standard output.
+    /// </summary>
     string standardOutput();
     /// <summary>
-    /// Returns the error output of the command last run.
+    /// The error output.
     /// </summary>
-    /// <returns>The output.</returns>
     string errorOutput();
     /// <summary>
-    /// Should contain an exit code if your module relays to a process
+    /// Occurs when result code changed.
     /// </summary>
-    /// <returns>The code.</returns>
-    int returnCode();
+    event EventHandler resultCodeChanged;
+    /// <summary>
+    /// The result code.
+    /// </summary>
+    int resultCode();
     #endregion
   }
 }

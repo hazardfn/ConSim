@@ -24,7 +24,7 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Classes;
+using ConSim.Lib.Interfaces;
 #endregion
 
 namespace ConSim.Shell
@@ -32,7 +32,7 @@ namespace ConSim.Shell
   class MainClass
   {
 
-    private static clsLesson currentLesson;
+    private static ConSim.Lib.Classes.clsLesson currentLesson;
     private static string nl = Environment.NewLine;
 
     public static void Main (string[] args)
@@ -77,19 +77,19 @@ namespace ConSim.Shell
       return Assembly.GetExecutingAssembly ().GetName ().Version.ToString () + nl;
     }
 
-    private static clsLesson getLesson(string lessonJSON)
+    private static ConSim.Lib.Classes.clsLesson getLesson(string lessonJSON)
     {
       // If you don't provide a full path
       // to clsLesson it errors out due 
       // to a requirement of loadAssembly
       try {
-        return new clsLesson(lessonJSON);
+        return new ConSim.Lib.Classes.clsLesson (lessonJSON);
       } catch (ArgumentException ex) {
         FileInfo f;
 
         if(File.Exists(lessonJSON)) {
           f = new FileInfo (lessonJSON);
-          return new clsLesson (f.FullName);
+          return new ConSim.Lib.Classes.clsLesson (f.FullName);
         }
 
         throw ex;
@@ -167,7 +167,7 @@ namespace ConSim.Shell
     private static void lessonLoop() {
       while (true == true) {
 
-        clsTask task = null; 
+        ConSim.Lib.Classes.clsTask task = null; 
 
         if (currentLesson.isSandbox == false) {
           task = currentLesson.activeTask;
@@ -183,7 +183,13 @@ namespace ConSim.Shell
         bool boolBreak = false;
 
         try {
-          attemptTask = currentLesson.attemptTask (command, args);
+          ConSim.Lib.Interfaces.iModule mod = currentLesson.cmdToiMod (command);
+
+          mod.errorOutputChanged += new EventHandler(onErrorOutputChange);
+          mod.standardOutputChanged += new EventHandler(onStandardOutputChange);
+          mod.resultCodeChanged += new EventHandler(onResultChange);
+
+          attemptTask = currentLesson.attemptTask (command, args, mod);
         } catch (Exception ex) {
           currentLesson.lastErrorOutput = ex.Message;
           Console.WriteLine (nl + ex.Message);
@@ -191,7 +197,6 @@ namespace ConSim.Shell
           
         // Lesson has been completed
         if (attemptTask && currentLesson.isSandbox == false) {
-          
           Console.Write (nl + "Congratulations! You passed the lesson!");
           boolBreak = true;
         }
@@ -220,6 +225,18 @@ namespace ConSim.Shell
         if (boolBreak)
           break;
       }
+    }
+
+    private static void onStandardOutputChange(object sender, EventArgs e) {
+      Console.WriteLine(((iModule)sender).standardOutput());
+    }
+
+    private static void onErrorOutputChange(object sender, EventArgs e) {
+      Console.WriteLine(((iModule)sender).errorOutput());
+    }
+
+    private static void onResultChange(object sender, EventArgs e) {
+      // We do not want to print result codes in this shell.
     }
   }
 }

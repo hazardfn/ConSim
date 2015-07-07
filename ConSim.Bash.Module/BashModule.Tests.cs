@@ -26,6 +26,7 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using ConSim.Lib.Interfaces;
 #endregion
 
 namespace ConSim.Bash.Module.Tests
@@ -46,14 +47,14 @@ namespace ConSim.Bash.Module.Tests
     [Test ()]
     public void TestHelpOutput()
     {
-      Interfaces.iModule mod = new BashModule ();
+      iModule mod = new BashModule ();
 
       mod.run ("help", new string[0]);
 
       // The return code may indicate
       // the tests are not being run in an environment
       // with bash (Windows, some distros).
-      if (mod.returnCode() != 2) {
+      if (mod.resultCode() != 2) {
         // Light check just to ensure some related output came back.
         Assert.AreEqual (mod.standardOutput ().Contains ("help"), true);
       }
@@ -69,7 +70,7 @@ namespace ConSim.Bash.Module.Tests
       if (Directory.Exists (testDir))
         Directory.Delete (testDir);
 
-      Interfaces.iModule mod = new BashModule ();
+      iModule mod = new BashModule ();
      
       string[] args = new string[1];
       args [0] = testDir;
@@ -79,11 +80,11 @@ namespace ConSim.Bash.Module.Tests
       // The return code may indicate
       // the tests are not being run in an environment
       // with bash (Windows, some distros).
-      if (mod.returnCode() != 2) {
+      if (mod.resultCode() != 2) {
         // Check the directory exists indicating success
         // Double check the return code is the expected 0
         Assert.AreEqual (Directory.Exists (testDir), true);
-        Assert.AreEqual (mod.returnCode (), 0);
+        Assert.AreEqual (mod.resultCode (), 0);
       }
 
       args = new string[2];
@@ -95,11 +96,11 @@ namespace ConSim.Bash.Module.Tests
       // The return code may indicate
       // the tests are not being run in an environment
       // with bash (Windows, some distros).
-      if (mod.returnCode() != 2) {
+      if (mod.resultCode() != 2) {
         // Check the directory no longer exists indicating success
         // Double check the return code is the expected 0
         Assert.AreEqual (Directory.Exists (testDir), false);
-        Assert.AreEqual (mod.returnCode(), 0);
+        Assert.AreEqual (mod.resultCode(), 0);
       }
       #endregion
     }

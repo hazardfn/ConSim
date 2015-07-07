@@ -28,10 +28,11 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using ConSim.Lib.Interfaces;
 
 #endregion
 
-namespace Classes
+namespace ConSim.Lib.Classes
 {
   /// <summary>
   /// Represents a collection of tasks and allowed
@@ -73,7 +74,7 @@ namespace Classes
     /// Maps a module class to an iModule.
     /// </summary>
     [IgnoreDataMember]
-    private Dictionary<clsModule, Interfaces.iModule> ModuleMap;
+    private Dictionary<string, Interfaces.iModule> ModuleMap;
     /// <summary>
     /// Keeps track of the currently
     /// active task.
@@ -90,6 +91,11 @@ namespace Classes
     /// </summary>
     [IgnoreDataMember]
     public string lastErrorOutput = "";
+    /// <summary>
+    /// The last result code.
+    /// </summary>
+    [IgnoreDataMember]
+    public int lastResultCode = 0;
     /// <summary>
     /// Tracks the array 
     /// </summary>
@@ -140,8 +146,8 @@ namespace Classes
     {
       try
       {
-        return ModuleMap[m];
-      } catch (ArgumentOutOfRangeException) {
+        return ModuleMap[m.filename];
+      } catch (Exception) {
         throw new ArgumentOutOfRangeException ("ERROR: Module is not in the list of loaded modules");
       }
     }
@@ -204,8 +210,13 @@ namespace Classes
         this.Version = newLesson.Version;
         this.AllowedModules = newLesson.AllowedModules;
 
-        this.ModuleMap = new Dictionary<clsModule, Interfaces.iModule> ();
+        this.ModuleMap = newLesson.ModuleMap;
         this.lessonpath = Path.GetDirectoryName (filepath);
+
+        if (ModuleMap == null) {
+          this.ModuleMap = new Dictionary<string, ConSim.Lib.Interfaces.iModule> ();
+        }
+
         this.LoadedModules = loadAllowedModules();
           
         try {
@@ -234,7 +245,7 @@ namespace Classes
       this.Tasks = Tasks;
       this.AllowedModules = Modules;
       this.lessonpath = LessonDirectory;
-      this.ModuleMap = new Dictionary<clsModule, Interfaces.iModule> ();
+      this.ModuleMap = new Dictionary<string, Interfaces.iModule> ();
       this.LoadedModules = loadAllowedModules ();
 
       try {
@@ -251,22 +262,15 @@ namespace Classes
     /// <returns><c>true</c>, if task was attempted, <c>false</c> otherwise.</returns>
     /// <param name="command">Command.</param>
     /// <param name="args">Arguments.</param>
-    public bool attemptTask(string command, string[] args)
+    public bool attemptTask(string command, string[] args, Interfaces.iModule mod)
     {
-
-      lastStandardOutput = "";
-      lastErrorOutput = "";
+      cleanOnRun ();
 
       string disallowedArg = disallowedCheck (args);
 
       if (disallowedArg != null) {
-        lastErrorOutput = "ERROR: Your command contains a disallowed argument: " + disallowedArg;
-        Console.WriteLine (lastErrorOutput);
-
-        return false;
+        throw new ArgumentException("ERROR: Your command contains a disallowed argument: " + disallowedArg);
       }
-
-      Interfaces.iModule mod = this.cmdToiMod (command);
 
       mod.run (command, args);
 
@@ -274,6 +278,7 @@ namespace Classes
 
       lastStandardOutput = mod.standardOutput ();
       lastErrorOutput = mod.errorOutput ();
+      lastResultCode = mod.resultCode ();
 
       if (isSandbox)
         return false;
@@ -337,12 +342,21 @@ namespace Classes
         var DLL = Assembly.LoadFile (lessonpath + "/Modules/" + m.filename);
         var moduleType = DLL.GetType (m.gettype);
 
-        Interfaces.iModule mod = (Interfaces.iModule)Activator.CreateInstance (moduleType);
+        ConSim.Lib.Interfaces.iModule mod = (ConSim.Lib.Interfaces.iModule)Activator.CreateInstance (moduleType);
         LoadedModules.Add (mod);
-        ModuleMap.Add (m, mod);
+        ModuleMap.Add (m.filename, mod);
       }
 
       return LoadedModules;
+    }
+
+    /// <summary>
+    /// Cleans before a run.
+    /// </summary>
+    private void cleanOnRun()
+    {
+      lastErrorOutput = "";
+      lastStandardOutput = "";
     }
 
     /// <summary>

@@ -24,55 +24,92 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ConSim.Lib.Interfaces;
 #endregion
 
-namespace Modules
+namespace ConSim
 {
-  public class TestModule : Interfaces.iModule
+  public class TestModule : iModule
   {
     /* API */
     #region API
     /// <summary>
     /// The result from the run.
     /// </summary>
-    string result;
+    private string result;
+    public string Result
+    {
+      get { return result; }
+      set {
+        result = value;
+
+        EventHandler handler = onStandardOutputChange;
+        if (handler != null) {
+          handler (this, new EventArgs ());
+        }
+      }
+    }
     /// <summary>
     /// Any error output.
     /// </summary>
-    string error;
+    private string error;
+    public string Error
+    {
+      get { return error; }
+      set {
+        error = value;
+
+        EventHandler handler = onErrorOutputChange;
+        if (handler != null) {
+          handler (this, new EventArgs ());
+        }
+      }
+    }
+    /// <summary>
+    /// Occurs on standard output change.
+    /// </summary>
+    event EventHandler onStandardOutputChange;
+    /// <summary>
+    /// Occurs when error output change.
+    /// </summary>
+    event EventHandler onErrorOutputChange;
+    /// <summary>
+    /// Occurs on result code change.
+    /// </summary>
+    event EventHandler onResultCodeChange;
 
     /// <summary>
     /// Standard output.
     /// </summary>
     /// <returns>The output.</returns>
-    string Interfaces.iModule.standardOutput ()
+    string iModule.standardOutput ()
     {
-      return result;
+      return Result;
     }
 
     /// <summary>
     /// Error output.
     /// </summary>
     /// <returns>The error output.</returns>
-    string Interfaces.iModule.errorOutput ()
+    string iModule.errorOutput ()
     {
-      return error;
+      return Error;
     }
 
     /// <summary>
     /// Exit code of any external process.
     /// </summary>
     /// <returns>The return code.</returns>
-    int Interfaces.iModule.returnCode ()
+    int iModule.resultCode ()
     {
-      throw new NotImplementedException ();
+      return 0;
     }
 
     /// <summary>
     /// Gets the module name.
     /// </summary>
     /// <returns>The module name.</returns>
-    string Interfaces.iModule.getName ()
+    string iModule.getName ()
     {
       return "TestModule";
     }
@@ -81,7 +118,7 @@ namespace Modules
     /// Gets the module version.
     /// </summary>
     /// <returns>The module version.</returns>
-    string Interfaces.iModule.getVersion ()
+    string iModule.getVersion ()
     {
       return "TEST";
     }
@@ -89,7 +126,7 @@ namespace Modules
     /// <summary>
     /// List of supported commands.
     /// </summary>
-    List<string> Interfaces.iModule.Commands ()
+    List<string> iModule.Commands ()
     {
       List<string> commands = new List<string> ();
 
@@ -102,19 +139,55 @@ namespace Modules
     /// The test module accepts a number and increments it by one.
     /// </summary>
     /// <param name="args">Arguments.</param>
-    void Interfaces.iModule.run (string command, string[] args)
+    void iModule.run (string command, string[] args)
     {
       int number = 0;
 
       try {
         number = Convert.ToInt32(args[0]);
       } catch (FormatException) {
-        this.error = "Unexpected format in arguments";
+        this.Error = "Unexpected format in arguments";
+        return;
       } catch (Exception ex) {
-        this.error = ex.Message;
+        this.Error = ex.Message;
+        return;
       }
 
-      result = (number + 1).ToString ();
+      Result = (number + 1).ToString ();
+    }
+
+    /// <summary>
+    /// Occurs when standard output is changed.
+    /// </summary>
+    event EventHandler iModule.standardOutputChanged {
+      add {
+        onStandardOutputChange += value;
+      }
+      remove {
+        onStandardOutputChange -= value;
+      }
+    }
+    /// <summary>
+    /// Occurs when error output is changed.
+    /// </summary>
+    event EventHandler iModule.errorOutputChanged {
+      add {
+        onErrorOutputChange += value;
+      }
+      remove {
+        onErrorOutputChange -= value;
+      }
+    }
+    /// <summary>
+    /// Occurs when result code is changed.
+    /// </summary>
+    event EventHandler iModule.resultCodeChanged {
+      add {
+        onResultCodeChange += value;
+      }
+      remove {
+        onResultCodeChange -= value;
+      }
     }
     #endregion
   }

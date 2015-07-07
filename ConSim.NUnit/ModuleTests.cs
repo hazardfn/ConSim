@@ -39,10 +39,13 @@ namespace ConSim.NUnit
     [Test()]
     public void ModuleTestResult()
     {
-      Interfaces.iModule testMod = new Modules.TestModule ();
+      ConSim.Lib.Interfaces.iModule testMod = new ConSim.TestModule ();
 
       string[] args = new string[1];
       args[0] = "1";
+
+      testMod.standardOutputChanged += new EventHandler(onStandardChange);
+      testMod.errorOutputChanged += new EventHandler(onErrorChange);
 
       testMod.run ("increment", args); 
 
@@ -60,6 +63,18 @@ namespace ConSim.NUnit
       // unexpected data.
       Assert.AreEqual (testMod.errorOutput(), "Unexpected format in arguments");
     }
+
+    private void onStandardChange(object sender, EventArgs e) {
+      ConSim.Lib.Interfaces.iModule testMod = (ConSim.Lib.Interfaces.iModule)sender;
+      Assert.AreEqual (testMod.standardOutput (), "2");
+    }
+
+    private void onErrorChange(object sender, EventArgs e) {
+      ConSim.Lib.Interfaces.iModule testMod = (ConSim.Lib.Interfaces.iModule)sender;
+      Assert.AreEqual (testMod.errorOutput (), "Unexpected format in arguments");
+    }
+
+
     #endregion
   }
 }

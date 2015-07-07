@@ -24,6 +24,7 @@
 using NUnit.Framework;
 using System;
 using System.IO;
+using ConSim.Lib.Classes;
 #endregion
 
 namespace ConSim.NUnit
@@ -39,7 +40,7 @@ namespace ConSim.NUnit
     private static readonly string LongDescription  = "This is a long description";
     private static readonly string ShortDescription = "This is short";
     private static readonly string Name             = "taskness";
-    private static readonly Classes.clsTask task    = new Classes.clsTask (Name,ShortDescription,LongDescription,ExpectedResult);
+    private static readonly ConSim.Lib.Classes.clsTask task    = new ConSim.Lib.Classes.clsTask (Name,ShortDescription,LongDescription,ExpectedResult);
 
 
     /* TESTS */
@@ -51,7 +52,7 @@ namespace ConSim.NUnit
     public void TestTaskWrite ()
     {
       task.save (taskJSON);
-      Classes.clsTask newTask = new Classes.clsTask (taskJSON);
+      ConSim.Lib.Classes.clsTask newTask = new ConSim.Lib.Classes.clsTask (taskJSON);
 
       // Assert that the values on read-back are the same
       Assert.AreEqual (newTask.ExpectedResult, ExpectedResult);
@@ -66,7 +67,7 @@ namespace ConSim.NUnit
     [Test ()]
     public void TestExistingTaskRead ()
     {
-      Classes.clsTask newTask = new Classes.clsTask (taskJSON);
+      ConSim.Lib.Classes.clsTask newTask = new ConSim.Lib.Classes.clsTask (taskJSON);
 
       // Assert that the values on read-back are the same
       Assert.AreEqual (newTask.ExpectedResult, "true");
