@@ -10,6 +10,7 @@
     <ReleaseVersion>1.01</ReleaseVersion>
     <Description>A bash simulator module for ConSim. Forwards commands
 to bash and reads the error/standard output.</Description>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

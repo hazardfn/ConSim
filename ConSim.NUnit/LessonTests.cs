@@ -36,10 +36,11 @@ namespace ConSim.NUnit
   {
     /* Location Variables */
     #region Location Variables
+    private static readonly char ps                = Path.DirectorySeparatorChar;
     private static readonly string baseDirectory     = AppDomain.CurrentDomain.BaseDirectory;
-    private static readonly string taskJSON          = baseDirectory + "/Lessons/TestLesson/Tasks/TestTask.json";
-    private static readonly string lessonJSON        = baseDirectory + "/Lessons/TestLesson/TestLesson.json";
-    private static readonly string sandboxLessonJSON = baseDirectory + "/Lessons/TestSandboxLesson/TestSandboxLesson.json";
+    private static readonly string taskJSON          = baseDirectory + ps + "Lessons" + ps + "TestLesson" + ps + "Tasks" + ps + "TestTask.json";
+    private static readonly string lessonJSON        = baseDirectory + ps + "Lessons" + ps + "TestLesson" + ps + "TestLesson.json";
+    private static readonly string sandboxLessonJSON = baseDirectory + ps + "Lessons" + ps + "TestSandboxLesson" + ps + "TestSandboxLesson.json";
     private static readonly string lessonDir         = Path.GetDirectoryName (lessonJSON);
     private static readonly string sandboxLessonDir  = Path.GetDirectoryName (sandboxLessonJSON);
     #endregion
@@ -51,7 +52,7 @@ namespace ConSim.NUnit
     private static readonly string ModuleType = "ConSim.TestModule";
     private static readonly string DLLName    = "ConSim.Test.Module.dll";
 
-    private static readonly string lessonModule = lessonDir + "/Modules/" + DLLName;
+    private static readonly string lessonModule = lessonDir + ps + "Modules" + ps + DLLName;
 
     private static readonly ConSim.Lib.Classes.clsTask task     = new ConSim.Lib.Classes.clsTask(taskJSON);
     private static readonly ConSim.Lib.Classes.clsModule module = new ConSim.Lib.Classes.clsModule(ModuleType, DLLName);
@@ -66,10 +67,10 @@ namespace ConSim.NUnit
     public void TestSandboxLessonFlow()
     {
       // Copy the module file for sandbox tests
-      if (Directory.Exists (sandboxLessonDir + "/Modules/") == false)
-        Directory.CreateDirectory (sandboxLessonDir + "/Modules/");
+      if (Directory.Exists (sandboxLessonDir + ps + "Modules" + ps) == false)
+        Directory.CreateDirectory (sandboxLessonDir + ps + "Modules" + ps);
       
-      File.Copy (lessonModule, sandboxLessonDir + "/Modules/" + DLLName, true);
+      File.Copy (lessonModule, sandboxLessonDir + ps + "Modules" + ps + DLLName, true);
 
       List<ConSim.Lib.Classes.clsTask> Tasks = new List<ConSim.Lib.Classes.clsTask> ();
       List<ConSim.Lib.Classes.clsModule> AllowedModules = new List<ConSim.Lib.Classes.clsModule> ();

@@ -61,11 +61,11 @@ namespace ConSim.Lib.Interfaces
     /// <summary>
     /// Occurs when standard output changed.
     /// </summary>
-    event EventHandler standardOutputChanged;
+    event EventHandler<Events.iModuleOutputEventArgs> standardOutputChanged;
     /// <summary>
     /// Occurs when error output changed.
     /// </summary>
-    event EventHandler errorOutputChanged;
+    event EventHandler<Events.iModuleOutputEventArgs> errorOutputChanged;
     /// <summary>
     /// The standard output.
     /// </summary>
@@ -77,7 +77,7 @@ namespace ConSim.Lib.Interfaces
     /// <summary>
     /// Occurs when result code changed.
     /// </summary>
-    event EventHandler resultCodeChanged;
+    event EventHandler<Events.iModuleOutputEventArgs> resultCodeChanged;
     /// <summary>
     /// The result code.
     /// </summary>

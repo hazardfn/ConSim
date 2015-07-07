@@ -11,6 +11,7 @@
     <Description>A console simulator designed for education purposes, allows custom
 modules to be written for certain commands. The base version covers
 basic Windows cmd functions.</Description>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +44,7 @@ basic Windows cmd functions.</Description>
     <Compile Include="Classes\clsTask.cs" />
     <Compile Include="Classes\clsLesson.cs" />
     <Compile Include="Classes\clsModule.cs" />
+    <Compile Include="Events\iModuleOutputEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -57,5 +59,6 @@ basic Windows cmd functions.</Description>
   <ItemGroup>
     <Folder Include="Classes\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Events\" />
   </ItemGroup>
 </Project>

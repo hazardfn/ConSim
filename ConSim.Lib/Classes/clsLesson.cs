@@ -337,12 +337,21 @@ namespace ConSim.Lib.Classes
     private List<Interfaces.iModule> loadAllowedModules()
     {
       List<Interfaces.iModule> LoadedModules = new List<Interfaces.iModule> ();
+      string tempPath = Path.GetTempPath ();
+
 
       foreach (clsModule m in AllowedModules) {
-        var DLL = Assembly.LoadFile (lessonpath + "/Modules/" + m.filename);
-        var moduleType = DLL.GetType (m.gettype);
+        string src = lessonpath + Path.DirectorySeparatorChar + "Modules" + Path.DirectorySeparatorChar + m.filename;
+        string dest = tempPath + m.filename;
+
+        if (!File.Exists (dest))
+          File.Copy (src, dest);
+
+        Assembly DLL = Assembly.LoadFile (dest);
+        Type moduleType = DLL.GetType (m.gettype);
 
         ConSim.Lib.Interfaces.iModule mod = (ConSim.Lib.Interfaces.iModule)Activator.CreateInstance (moduleType);
+
         LoadedModules.Add (mod);
         ModuleMap.Add (m.filename, mod);
       }

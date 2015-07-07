@@ -11,6 +11,7 @@
     <SynchReleaseVersion>false</SynchReleaseVersion>
     <Description>A ConSim module which forwards commands to the windows
 console and returns the output.</Description>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

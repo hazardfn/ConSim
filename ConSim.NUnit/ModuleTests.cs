@@ -24,6 +24,7 @@
 using NUnit.Framework;
 using System;
 using System.IO;
+using ConSim.Lib.Events;
 #endregion
 
 namespace ConSim.NUnit
@@ -44,8 +45,8 @@ namespace ConSim.NUnit
       string[] args = new string[1];
       args[0] = "1";
 
-      testMod.standardOutputChanged += new EventHandler(onStandardChange);
-      testMod.errorOutputChanged += new EventHandler(onErrorChange);
+      testMod.standardOutputChanged += new EventHandler<iModuleOutputEventArgs>(onStandardChange);
+      testMod.errorOutputChanged += new EventHandler<iModuleOutputEventArgs>(onErrorChange);
 
       testMod.run ("increment", args); 
 
@@ -64,14 +65,14 @@ namespace ConSim.NUnit
       Assert.AreEqual (testMod.errorOutput(), "Unexpected format in arguments");
     }
 
-    private void onStandardChange(object sender, EventArgs e) {
+    private void onStandardChange(object sender, iModuleOutputEventArgs e) {
       ConSim.Lib.Interfaces.iModule testMod = (ConSim.Lib.Interfaces.iModule)sender;
-      Assert.AreEqual (testMod.standardOutput (), "2");
+      Assert.AreEqual (e.output.ToString(), "2");
     }
 
-    private void onErrorChange(object sender, EventArgs e) {
+    private void onErrorChange(object sender, iModuleOutputEventArgs e) {
       ConSim.Lib.Interfaces.iModule testMod = (ConSim.Lib.Interfaces.iModule)sender;
-      Assert.AreEqual (testMod.errorOutput (), "Unexpected format in arguments");
+      Assert.AreEqual (e.output.ToString(), "Unexpected format in arguments");
     }
 
 

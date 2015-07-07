@@ -33,8 +33,9 @@ namespace ConSim.NUnit
   public class TaskTest
   {
     /* Test Variables */
+    private static readonly char ps       = Path.DirectorySeparatorChar;
     private static readonly string baseDir  = AppDomain.CurrentDomain.BaseDirectory;
-    private static readonly string taskJSON = baseDir + "/Lessons/TestLesson/Tasks/TestTask.json";
+    private static readonly string taskJSON = baseDir + ps + "Lessons" + ps + "TestLesson" + ps + "Tasks" + ps + "TestTask.json";
 
     private static readonly string ExpectedResult   = "true";
     private static readonly string LongDescription  = "This is a long description";

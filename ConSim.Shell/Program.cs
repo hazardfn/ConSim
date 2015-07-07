@@ -25,6 +25,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using ConSim.Lib.Interfaces;
+using ConSim.Lib.Events;
 #endregion
 
 namespace ConSim.Shell
@@ -185,9 +186,9 @@ namespace ConSim.Shell
         try {
           ConSim.Lib.Interfaces.iModule mod = currentLesson.cmdToiMod (command);
 
-          mod.errorOutputChanged += new EventHandler(onErrorOutputChange);
-          mod.standardOutputChanged += new EventHandler(onStandardOutputChange);
-          mod.resultCodeChanged += new EventHandler(onResultChange);
+          mod.errorOutputChanged += new EventHandler<iModuleOutputEventArgs>(onErrorOutputChange);
+          mod.standardOutputChanged += new EventHandler<iModuleOutputEventArgs>(onStandardOutputChange);
+          mod.resultCodeChanged += new EventHandler<iModuleOutputEventArgs>(onResultChange);
 
           attemptTask = currentLesson.attemptTask (command, args, mod);
         } catch (Exception ex) {
@@ -227,15 +228,15 @@ namespace ConSim.Shell
       }
     }
 
-    private static void onStandardOutputChange(object sender, EventArgs e) {
-      Console.WriteLine(((iModule)sender).standardOutput());
+    private static void onStandardOutputChange(object sender, iModuleOutputEventArgs e) {
+      Console.WriteLine(e.output);
     }
 
-    private static void onErrorOutputChange(object sender, EventArgs e) {
-      Console.WriteLine(((iModule)sender).errorOutput());
+    private static void onErrorOutputChange(object sender, iModuleOutputEventArgs e) {
+      Console.WriteLine(e.output);
     }
 
-    private static void onResultChange(object sender, EventArgs e) {
+    private static void onResultChange(object sender, iModuleOutputEventArgs e) {
       // We do not want to print result codes in this shell.
     }
   }
