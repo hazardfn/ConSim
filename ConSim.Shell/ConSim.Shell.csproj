@@ -20,7 +20,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
-    <Commandlineparameters>-l "C:\Users\IEUser\ConSim\ConSim.NUnit\bin\Debug\Lessons\TestLesson\TestLesson.json"</Commandlineparameters>
+    <Commandlineparameters>-l "/Users/howardbeard-marlowe/Projects/ConSim/ConSim.NUnit/bin/Debug/Lessons/TestLesson/TestLesson.json"</Commandlineparameters>
     <Externalconsole>true</Externalconsole>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">

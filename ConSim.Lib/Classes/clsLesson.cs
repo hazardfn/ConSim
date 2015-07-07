@@ -148,7 +148,8 @@ namespace ConSim.Lib.Classes
       {
         return ModuleMap[m.filename];
       } catch (Exception) {
-        throw new ArgumentOutOfRangeException ("ERROR: Module is not in the list of loaded modules");
+        throw new ArgumentOutOfRangeException 
+          ("ERROR: Module is not in the list of loaded modules");
       }
     }
 
@@ -168,12 +169,14 @@ namespace ConSim.Lib.Classes
 
         // If the module contains the command and it exists
         // in the allowed commands for the task return it.
-        if (m.Commands().Contains(command) && activeTask.allowedCommands.Contains(command))
+        if (m.Commands().Contains(command) 
+            && activeTask.allowedCommands.Contains(command))
           return m;
         // If the module contains the command and the
         // allowed commands for the task is an empty
         // list, assume all commands are allowed in this task.
-        if (m.Commands ().Contains (command) && activeTask.allowedCommands.Count == 0)
+        if (m.Commands ().Contains (command) 
+            && activeTask.allowedCommands.Count == 0)
           return m;
       }
 
@@ -187,7 +190,9 @@ namespace ConSim.Lib.Classes
     public void save(string filepath)
     {
       using (FileStream f = new FileStream (filepath, FileMode.Create)) {
-        DataContractJsonSerializer ser = new DataContractJsonSerializer (typeof(clsLesson));
+        DataContractJsonSerializer ser = 
+          new DataContractJsonSerializer (typeof(clsLesson));
+        
         ser.WriteObject (f, this);
         f.Close ();
       }
@@ -201,7 +206,9 @@ namespace ConSim.Lib.Classes
     {
       using (FileStream f = new FileStream(filepath, FileMode.Open))
       {
-        DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(clsLesson));
+        DataContractJsonSerializer ser = 
+          new DataContractJsonSerializer(typeof(clsLesson));
+
         clsLesson newLesson = (clsLesson)ser.ReadObject(f);
 
         //Set readonly variables
@@ -214,7 +221,8 @@ namespace ConSim.Lib.Classes
         this.lessonpath = Path.GetDirectoryName (filepath);
 
         if (ModuleMap == null) {
-          this.ModuleMap = new Dictionary<string, ConSim.Lib.Interfaces.iModule> ();
+          this.ModuleMap = 
+            new Dictionary<string, ConSim.Lib.Interfaces.iModule> ();
         }
 
         this.LoadedModules = loadAllowedModules();
@@ -235,7 +243,8 @@ namespace ConSim.Lib.Classes
     /// <param name="Version">Version.</param>
     /// <param name="AllowedModules">Allowed modules.</param>
     /// <param name="Tasks">Tasks.</param>
-    /// <param name="LessonDirectory">Root directory of the lesson (used to load modules)</param>
+    /// <param name="LessonDirectory">Root directory of the lesson 
+    /// (used to load modules)</param>
     public clsLesson (string Name, string Version, List<clsTask> Tasks, 
       List<clsModule> Modules, string LessonDirectory,
       bool commandToTask = false) {
@@ -259,17 +268,21 @@ namespace ConSim.Lib.Classes
     /// Attempts the task. Returns true if the lesson is finished
     /// a false return means you should refresh the task.
     /// </summary>
-    /// <returns><c>true</c>, if task was attempted, <c>false</c> otherwise.</returns>
+    /// <returns><c>true</c>, if task was attempted, 
+    /// <c>false</c> otherwise.</returns>
     /// <param name="command">Command.</param>
     /// <param name="args">Arguments.</param>
-    public bool attemptTask(string command, string[] args, Interfaces.iModule mod)
+    public bool attemptTask(string command, string[] args, 
+      Interfaces.iModule mod)
     {
       cleanOnRun ();
 
       string disallowedArg = disallowedCheck (args);
 
       if (disallowedArg != null) {
-        throw new ArgumentException("ERROR: Your command contains a disallowed argument: " + disallowedArg);
+        throw new ArgumentException
+          ("ERROR: Your command contains a disallowed argument: " 
+          + disallowedArg);
       }
 
       mod.run (command, args);
@@ -341,7 +354,9 @@ namespace ConSim.Lib.Classes
 
 
       foreach (clsModule m in AllowedModules) {
-        string src = lessonpath + Path.DirectorySeparatorChar + "Modules" + Path.DirectorySeparatorChar + m.filename;
+        string src = lessonpath + Path.DirectorySeparatorChar + "Modules" + 
+          Path.DirectorySeparatorChar + m.filename;
+
         string dest = tempPath + m.filename;
 
         if (!File.Exists (dest))
@@ -350,7 +365,8 @@ namespace ConSim.Lib.Classes
         Assembly DLL = Assembly.LoadFile (dest);
         Type moduleType = DLL.GetType (m.gettype);
 
-        ConSim.Lib.Interfaces.iModule mod = (ConSim.Lib.Interfaces.iModule)Activator.CreateInstance (moduleType);
+        ConSim.Lib.Interfaces.iModule mod = 
+          (ConSim.Lib.Interfaces.iModule)Activator.CreateInstance (moduleType);
 
         LoadedModules.Add (mod);
         ModuleMap.Add (m.filename, mod);

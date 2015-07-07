@@ -111,3 +111,24 @@ Loading the TestLesson
  ![Example](http://imageshack.com/a/img673/3586/A1RBZ2.png)
 
  The expected result is 2, the test module increments an argument by 1 so supplying the command "increment 1" should  pass the task.
+
+How To Contribute
+--------
+To contribute, the following criteria needs to be fulfilled:
+
+* Description regarding what has been changed and why
+* Generic code must be cross-platform compatible
+* OS-Specific modules (such as the Windows Module) should be tested in the correct OS.
+* Your IDE should be set to the following standards (using Xamarin this will be done automatically):
+** 80 char file width
+** Tab and Indent length of 2
+** Tabs to Spaces
+** Disallow tabs after non-tabs
+** Trim Trailing Whitespace
+* New features and bug fixes must have accompanying unit tests:
+** Positive tests
+** Negative tests
+** Boundary tests (if possible)
+** No less than 90% decision coverage
+** All unit tests should pass
+
