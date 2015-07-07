@@ -147,7 +147,7 @@ namespace ConSim.Windows.Module
       commands.Add ("nslookup");
       commands.Add ("ping");
       commands.Add ("tracert");
-
+      commands.Add ("ipconfig");
 
       return commands;
     }
@@ -168,6 +168,7 @@ namespace ConSim.Windows.Module
       unsupported.Add (@"nslookup -");
       unsupported.Add (@"^nslookup$");
       unsupported.Add (@"ping -t");
+      unsupported.Add (@"ipconfig /re");
 
       foreach (string s in unsupported) {
         Regex rex = new Regex (s);
