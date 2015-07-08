@@ -50,9 +50,12 @@ namespace ConSim.Lib.Interfaces
     /// <returns>The version.</returns>
     string getVersion();
     /// <summary>
-    /// Gets a list of accepted commands
+    /// Is command unsupported.
     /// </summary>
-    List<string> Commands();
+    /// <returns><c>true</c>, if command was unsupporteded, <c>false</c> otherwise.</returns>
+    /// <param name="cmd">Cmd.</param>
+    /// <param name="args">Arguments.</param>
+    bool unsupportedCommand(string cmd, string[] args);
     /// <summary>
     /// Runs the module when supplied with a list of args.
     /// </summary>

@@ -139,27 +139,17 @@ namespace ConSim.Bash.Module
     }
 
     /// <summary>
-    /// Returns a list of commands supported by this module.
-    /// </summary>
-    List<string> iModule.Commands ()
-    {
-      List<string> commands = new List<string> ();
-
-      commands.Add ("help");
-      commands.Add ("cp");
-      commands.Add ("mkdir");
-      commands.Add ("rm");
-
-      return commands;
-    }
-
-    /// <summary>
     /// Gets the version of the module.
     /// </summary>
     /// <returns>The module version.</returns>
     string iModule.getVersion ()
     {
       return "1.0.0";
+    }
+
+    bool iModule.unsupportedCommand (string cmd, string[] args)
+    {
+      return false;
     }
 
     /// <summary>
