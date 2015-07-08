@@ -52,7 +52,8 @@ Usage
     
       ],
       "errorToTask": false,
-      "lazyMatching": false
+      "lazyMatching": false,
+      "regexMatching": false
     }
   ],
   "Version": "TEST",
@@ -100,6 +101,12 @@ Usage
  **errorToTask**: Set to true if your expected result analysis is on an error that should be returned as opposed to the output.
  
  **lazyMatching**: Set to true if you just want to match part of the output (can be combined with command and error to task).
+
+ **regexMatching**: Set to true if your expected result is a regex pattern.
+
+NOTE Matching flows as following in the cases where lazy and regex are set to true:
+
+regex -> lazy -> exact
 
 Loading the TestLesson
 --------
