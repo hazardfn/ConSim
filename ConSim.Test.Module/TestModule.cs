@@ -122,19 +122,14 @@ namespace ConSim
     {
       return "TEST";
     }
-
     /// <summary>
-    /// List of supported commands.
+    /// Is command unsupported.
     /// </summary>
-    List<string> iModule.Commands ()
+    /// <returns><c>true</c>, if command was unsupporteded, <c>false</c> otherwise.</returns>
+    bool iModule.unsupportedCommand (string cmd, string[] args)
     {
-      List<string> commands = new List<string> ();
-
-      commands.Add ("increment");
-
-      return commands;
+      return false;
     }
-
     /// <summary>
     /// The test module accepts a number and increments it by one.
     /// </summary>

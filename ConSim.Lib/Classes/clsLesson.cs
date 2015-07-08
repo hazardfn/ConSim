@@ -66,11 +66,6 @@ namespace ConSim.Lib.Classes
     [DataMember]
     public readonly List<Classes.clsTask> Tasks;
     /// <summary>
-    /// The loaded modules.
-    /// </summary>
-    [IgnoreDataMember]
-    private readonly List<Interfaces.iModule> LoadedModules;
-    /// <summary>
     /// Maps a module class to an iModule.
     /// </summary>
     [IgnoreDataMember]
@@ -161,23 +156,23 @@ namespace ConSim.Lib.Classes
     public Interfaces.iModule cmdToiMod(string command)
     {
       
-      foreach(Interfaces.iModule m in LoadedModules) {
+      foreach(clsModule m in AllowedModules) {
 
         // Sandbox mode support.
-        if (m.Commands ().Contains (command) && isSandbox)
-          return m;
+        if (m.commands.Contains (command) && isSandbox)
+          return ModuleMap[m.filename];
 
         // If the module contains the command and it exists
         // in the allowed commands for the task return it.
-        if (m.Commands().Contains(command) 
+        if (m.commands.Contains(command) 
             && activeTask.allowedCommands.Contains(command))
-          return m;
+          return ModuleMap[m.filename];
         // If the module contains the command and the
         // allowed commands for the task is an empty
         // list, assume all commands are allowed in this task.
-        if (m.Commands ().Contains (command) 
+        if (m.commands.Contains (command)
             && activeTask.allowedCommands.Count == 0)
-          return m;
+          return ModuleMap [m.filename];
       }
 
       throw new ArgumentException ("ERROR: command " + command + " not found!");
@@ -220,16 +215,8 @@ namespace ConSim.Lib.Classes
       this.Tasks = (List<clsTask>)newLesson.Tasks;
       this.Version = newLesson.Version;
       this.AllowedModules = newLesson.AllowedModules;
-
-      this.ModuleMap = newLesson.ModuleMap;
       this.lessonpath = Path.GetDirectoryName (filepath);
-
-      if (ModuleMap == null) {
-        this.ModuleMap = 
-          new Dictionary<string, ConSim.Lib.Interfaces.iModule> ();
-      }
-
-      this.LoadedModules = loadAllowedModules();
+      this.ModuleMap = loadAllowedModules();
 
       try {
         this.activeTask = this.Tasks[0];
@@ -257,8 +244,7 @@ namespace ConSim.Lib.Classes
       this.Tasks = Tasks;
       this.AllowedModules = Modules;
       this.lessonpath = LessonDirectory;
-      this.ModuleMap = new Dictionary<string, Interfaces.iModule> ();
-      this.LoadedModules = loadAllowedModules ();
+      this.ModuleMap = loadAllowedModules ();
 
       try {
         this.activeTask = this.Tasks [0];
@@ -286,6 +272,12 @@ namespace ConSim.Lib.Classes
         throw new ArgumentException
           ("ERROR: Your command contains a disallowed argument: " 
           + disallowedArg);
+      }
+
+      if (mod.unsupportedCommand(command, args))
+      {
+        throw new ArgumentException 
+          ("This command is unsupported by the module");
       }
 
       mod.run (command, args);
@@ -339,8 +331,8 @@ namespace ConSim.Lib.Classes
     {
       List<string> retval = new List<string> ();
 
-      foreach (Interfaces.iModule mod in LoadedModules) {
-        retval.AddRange (mod.Commands());
+      foreach (clsModule mod in AllowedModules) {
+        retval.AddRange (mod.commands);
       }
 
       return retval;
@@ -357,9 +349,11 @@ namespace ConSim.Lib.Classes
     /// </summary>
     /// <returns>The allowed modules.</returns>
     /// <param name="Modules">Modules.</param>
-    private List<Interfaces.iModule> loadAllowedModules()
+    private Dictionary<string, Interfaces.iModule> loadAllowedModules()
     {
-      List<Interfaces.iModule> LoadedModules = new List<Interfaces.iModule> ();
+      Dictionary<string, Interfaces.iModule> mm = 
+        new Dictionary<string, iModule> ();
+
       string tempPath = Path.GetTempPath ();
 
 
@@ -386,11 +380,10 @@ namespace ConSim.Lib.Classes
         ConSim.Lib.Interfaces.iModule mod = 
           (ConSim.Lib.Interfaces.iModule)Activator.CreateInstance (moduleType);
 
-        LoadedModules.Add (mod);
-        ModuleMap.Add (m.filename, mod);
+        mm.Add (m.filename, mod);
       }
 
-      return LoadedModules;
+      return mm;
     }
 
     /// <summary>

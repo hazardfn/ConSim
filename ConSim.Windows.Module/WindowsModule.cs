@@ -134,25 +134,6 @@ namespace ConSim.Windows.Module
     }
 
     /// <summary>
-    /// List of supported commands.
-    /// </summary>
-    List<string> iModule.Commands ()
-    {
-      List<string> commands = new List<string> ();
-
-      commands.Add ("help");
-      commands.Add ("md");
-      commands.Add ("mkdir");
-      commands.Add ("rmdir");
-      commands.Add ("nslookup");
-      commands.Add ("ping");
-      commands.Add ("tracert");
-      commands.Add ("ipconfig");
-
-      return commands;
-    }
-
-    /// <summary>
     /// Some commands will never finish
     /// outputting causing an infinite loop
     /// that's bad.
@@ -161,8 +142,9 @@ namespace ConSim.Windows.Module
     /// better way to handle it.
     /// </summary>
     /// <value>True if unsupported.</value>
-    private bool unsupportedCommand (string cmdandargs)
+    bool iModule.unsupportedCommand (string cmd, string[] args)
     {
+      string cmdandargs = prepareArguments (cmd, args);
       List<string> unsupported = new List<string> ();
 
       unsupported.Add (@"nslookup -");
@@ -199,14 +181,6 @@ namespace ConSim.Windows.Module
       erroroutput = "";
       standardoutput = "";
       resultcode = 0;
-
-      string preppedArgs = prepareArguments (command, args);
-
-      if (unsupportedCommand(preppedArgs))
-      {
-        ErrorOutput = "This command is unsupported by the module";
-        return;
-      }
 
       string filename = @"cmd.exe";
       string arguments = "/C " + prepareArguments (command, args);

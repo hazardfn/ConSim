@@ -55,6 +55,12 @@ namespace ConSim.Lib.Classes
     /// </summary>
     [DataMember]
     public string filename;
+
+    /// <summary>
+    /// The supported commands.
+    /// </summary>
+    [DataMember]
+    public List<string> commands;
     #endregion
 
     /* API */
@@ -79,6 +85,12 @@ namespace ConSim.Lib.Classes
       // Set readonly variables
       this.gettype = newModule.gettype;
       this.filename = newModule.filename;
+      this.commands = newModule.commands;
+
+      if (commands == null || commands.Count == 0) {
+        throw new ArgumentException 
+          ("ERROR: A module without commands is useless!");
+      }
     }
 
     /// <summary>
@@ -86,10 +98,16 @@ namespace ConSim.Lib.Classes
     /// </summary>
     /// <param name="type">Type.</param>
     /// <param name="filename">Filename.</param>
-    public clsModule (string type, string filename)
+    public clsModule (string type, string filename, List<string> commands)
     {
       this.gettype  = type;
-      this.filename = filename; 
+      this.filename = filename;
+      this.commands = commands;
+
+      if (commands == null || commands.Count == 0) {
+        throw new ArgumentException 
+        ("ERROR: A module without commands is useless!");
+      }
     }
 
     /// <summary>
@@ -104,7 +122,7 @@ namespace ConSim.Lib.Classes
 
         ser.WriteObject (f, this);
         f.Close ();
-      }      
+      }
     }
 
     #endregion

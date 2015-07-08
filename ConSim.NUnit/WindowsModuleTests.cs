@@ -57,15 +57,7 @@ namespace ConSim.Windows.Module
     {
       iModule mod = new WindowsModule ();
 
-      mod.run ("nslookup", new string[0]);
-
-      // The return code may indicate
-      // the tests are not being run in an environment
-      // with cmd (e.g. Anything but Windows).
-      if (mod.resultCode () != 2) {
-        Assert.AreEqual (mod.errorOutput (), 
-          "This command is unsupported by the module"); 
-      }
+      Assert.True(mod.unsupportedCommand("nslookup", new string[0]));
     }
     /// <summary>
     /// Tests the nslookup output.

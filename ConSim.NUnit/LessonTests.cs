@@ -73,10 +73,17 @@ namespace ConSim.NUnit
 
     private static readonly ConSim.Lib.Classes.clsTask task     = 
       new ConSim.Lib.Classes.clsTask(taskJSON);
-    
-    private static readonly ConSim.Lib.Classes.clsModule module = 
-      new ConSim.Lib.Classes.clsModule(ModuleType, DLLName);
+
+    private static List<string> commands = new List<string>();
+    private static ConSim.Lib.Classes.clsModule module;
     #endregion
+
+    [TestFixtureSetUp ()]
+    public void setupFixture()
+    {
+      commands.Add ("increment");
+      module = new ConSim.Lib.Classes.clsModule(ModuleType, DLLName, commands);
+    }
 
     /* TESTS */
     #region Tests
@@ -119,7 +126,8 @@ namespace ConSim.NUnit
       args[0] = "random";
       Assert.AreEqual (lesson.attemptTask ("increment", args, 
         lesson.clsToiMod(module)), false);
-      Assert.AreEqual (lesson.lastErrorOutput, "Unexpected format in arguments");
+      Assert.AreEqual (lesson.lastErrorOutput, 
+        "Unexpected format in arguments");
     }
 
 
@@ -263,7 +271,8 @@ namespace ConSim.NUnit
 
       Tasks.Add (
         new ConSim.Lib.Classes.clsTask (task.Name, task.ShortDescription, 
-          task.LongDescription, "increment 6",false,false,true, false, null, null)
+          task.LongDescription, "increment 6",false,false,true, false, null, 
+          null)
       );
 
       AllowedModules.Add (module);
