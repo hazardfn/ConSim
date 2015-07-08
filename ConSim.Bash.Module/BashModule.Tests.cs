@@ -36,7 +36,8 @@ namespace ConSim.Bash.Module.Tests
   {
 
     /* Test Variables */
-    private static readonly string testDir = AppDomain.CurrentDomain.BaseDirectory + "testdir";
+    private static readonly string testDir = AppDomain.CurrentDomain.BaseDirectory
+      + "testdir";
 
 
     /* TESTS */

@@ -24,13 +24,25 @@ namespace ConSim.Lib.Events
 {
   public class iModuleOutputEventArgs : EventArgs
   {
+    /// <summary>
+    /// Output from a module.
+    /// </summary>
     private readonly object _output;
 
+    /// <summary>
+    /// Initializes a new instance of the 
+    /// <see cref="ConSim.Lib.Events.iModuleOutputEventArgs"/> class.
+    /// </summary>
+    /// <param name="output">Output.</param>
     public iModuleOutputEventArgs (object output)
     {
       _output = output;
     }
 
+    /// <summary>
+    /// Gets the output.
+    /// </summary>
+    /// <value>The output.</value>
     public object output
     {
       get { return _output; }

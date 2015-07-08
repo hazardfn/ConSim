@@ -65,16 +65,20 @@ namespace ConSim.Lib.Classes
     /// <param name="filepath">Filepath.</param>
     public clsModule(string filepath)
     {
-      using (FileStream f = new FileStream (filepath, FileMode.Open)) {
-        DataContractJsonSerializer ser = new DataContractJsonSerializer (typeof(clsModule));
-        clsModule newModule = (clsModule)ser.ReadObject (f);
+      clsModule newModule = null;
 
-        // Set readonly variables
-        this.gettype = newModule.gettype;
-        this.filename = newModule.filename;
+      using (FileStream f = new FileStream (filepath, FileMode.Open)) {
+        DataContractJsonSerializer ser = 
+          new DataContractJsonSerializer (typeof(clsModule));
+
+        newModule = (clsModule)ser.ReadObject (f);
 
         f.Close ();
       }
+
+      // Set readonly variables
+      this.gettype = newModule.gettype;
+      this.filename = newModule.filename;
     }
 
     /// <summary>
@@ -95,7 +99,9 @@ namespace ConSim.Lib.Classes
     public void save(string filepath)
     {
       using (FileStream f = new FileStream (filepath, FileMode.Create)) {
-        DataContractJsonSerializer ser = new DataContractJsonSerializer (typeof(clsModule));
+        DataContractJsonSerializer ser = 
+          new DataContractJsonSerializer (typeof(clsModule));
+
         ser.WriteObject (f, this);
         f.Close ();
       }      

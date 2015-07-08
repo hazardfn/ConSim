@@ -37,7 +37,8 @@ namespace ConSim.Windows.Module
   {
 
     /* Test Variables */
-    private static readonly string testDir = AppDomain.CurrentDomain.BaseDirectory + "testdir";
+    private static readonly string testDir = 
+      AppDomain.CurrentDomain.BaseDirectory + "testdir";
 
     private static string output;
 
@@ -62,7 +63,8 @@ namespace ConSim.Windows.Module
       // the tests are not being run in an environment
       // with cmd (e.g. Anything but Windows).
       if (mod.resultCode () != 2) {
-        Assert.AreEqual (mod.errorOutput (), "This command is unsupported by the module"); 
+        Assert.AreEqual (mod.errorOutput (), 
+          "This command is unsupported by the module"); 
       }
     }
     /// <summary>

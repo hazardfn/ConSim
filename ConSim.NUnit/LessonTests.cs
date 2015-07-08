@@ -162,15 +162,28 @@ namespace ConSim.NUnit
     [Test ()]
     public void TestLessonFlow()
     {
-      List<ConSim.Lib.Classes.clsTask> Tasks = new List<ConSim.Lib.Classes.clsTask> ();
-      List<ConSim.Lib.Classes.clsModule> AllowedModules = new List<ConSim.Lib.Classes.clsModule> ();
+      List<ConSim.Lib.Classes.clsTask> Tasks = 
+        new List<ConSim.Lib.Classes.clsTask> ();
 
-      Tasks.Add (new ConSim.Lib.Classes.clsTask (task.Name, task.ShortDescription, task.LongDescription, 2));
-      Tasks.Add (new ConSim.Lib.Classes.clsTask (task.Name, task.ShortDescription, task.LongDescription, 3));
+      List<ConSim.Lib.Classes.clsModule> AllowedModules = 
+        new List<ConSim.Lib.Classes.clsModule> ();
+
+      Tasks.Add (
+        new ConSim.Lib.Classes.clsTask (task.Name, task.ShortDescription, 
+          task.LongDescription, 2)
+      );
+
+      Tasks.Add (
+        new ConSim.Lib.Classes.clsTask (task.Name, task.ShortDescription, 
+          task.LongDescription, 3)
+      );
 
       AllowedModules.Add (module);
 
-      ConSim.Lib.Classes.clsLesson lesson = new ConSim.Lib.Classes.clsLesson (Name, Version, Tasks, AllowedModules, lessonDir);
+      ConSim.Lib.Classes.clsLesson lesson = 
+        new ConSim.Lib.Classes.clsLesson (Name, Version, Tasks, AllowedModules, 
+          lessonDir);
+      
       lesson.save (lessonJSON);
 
       lesson = new ConSim.Lib.Classes.clsLesson (lessonJSON);
@@ -179,20 +192,27 @@ namespace ConSim.NUnit
 
       //Test a failed try returns false
       args[0] = lesson.activeTask.ExpectedResult.ToString();
-      Assert.AreEqual(lesson.attemptTask("increment", args, lesson.clsToiMod(module)), false);
+      Assert.AreEqual(lesson.attemptTask("increment", args, 
+        lesson.clsToiMod(module)), false);
 
       //Test a weird value still returns false
       args[0] = "random";
-      Assert.AreEqual (lesson.attemptTask ("increment", args, lesson.clsToiMod(module)), false);
+      Assert.AreEqual (lesson.attemptTask ("increment", args, 
+        lesson.clsToiMod(module)), false);
 
       //Test the right value returns false but advances the task
       args[0] = (Convert.ToInt32(lesson.activeTask.ExpectedResult) - 1).ToString();
-      Assert.AreEqual (lesson.attemptTask ("increment", args, lesson.clsToiMod(module)), false);
+      Assert.AreEqual (lesson.attemptTask ("increment", args, 
+        lesson.clsToiMod(module)), false);
+      
       Assert.AreNotEqual (lesson.activeTask.ExpectedResult, 2);
 
       //Test the final task completion returns true
-      args[0] = (Convert.ToInt32(lesson.activeTask.ExpectedResult) - 1).ToString();
-      Assert.AreEqual (lesson.attemptTask ("increment", args, lesson.clsToiMod(module)), true);
+      args[0] = (Convert.ToInt32(lesson.activeTask.ExpectedResult) - 1).
+        ToString();
+
+      Assert.AreEqual (lesson.attemptTask ("increment", args, 
+        lesson.clsToiMod(module)), true);
     }
     #endregion
   }

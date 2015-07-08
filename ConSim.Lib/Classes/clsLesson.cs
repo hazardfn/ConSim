@@ -204,36 +204,39 @@ namespace ConSim.Lib.Classes
     /// <param name="filepath">Path to a valid json lesson.</param>
     public clsLesson (string filepath)
     {
+      clsLesson newLesson = null;
+
       using (FileStream f = new FileStream(filepath, FileMode.Open))
       {
         DataContractJsonSerializer ser = 
           new DataContractJsonSerializer(typeof(clsLesson));
 
-        clsLesson newLesson = (clsLesson)ser.ReadObject(f);
+        newLesson = (clsLesson)ser.ReadObject(f);
 
-        //Set readonly variables
-        this.Name = newLesson.Name;
-        this.Tasks = (List<clsTask>)newLesson.Tasks;
-        this.Version = newLesson.Version;
-        this.AllowedModules = newLesson.AllowedModules;
+       }
 
-        this.ModuleMap = newLesson.ModuleMap;
-        this.lessonpath = Path.GetDirectoryName (filepath);
+      //Set readonly variables
+      this.Name = newLesson.Name;
+      this.Tasks = (List<clsTask>)newLesson.Tasks;
+      this.Version = newLesson.Version;
+      this.AllowedModules = newLesson.AllowedModules;
 
-        if (ModuleMap == null) {
-          this.ModuleMap = 
-            new Dictionary<string, ConSim.Lib.Interfaces.iModule> ();
-        }
+      this.ModuleMap = newLesson.ModuleMap;
+      this.lessonpath = Path.GetDirectoryName (filepath);
 
-        this.LoadedModules = loadAllowedModules();
-          
-        try {
-          this.activeTask = this.Tasks[0];
-        } catch (Exception) {
-          //WARNING: No tasks in this lesson, sandbox mode is active!
-        }
-  
-        }
+      if (ModuleMap == null) {
+        this.ModuleMap = 
+          new Dictionary<string, ConSim.Lib.Interfaces.iModule> ();
+      }
+
+      this.LoadedModules = loadAllowedModules();
+
+      try {
+        this.activeTask = this.Tasks[0];
+      } catch (Exception) {
+        //WARNING: No tasks in this lesson, sandbox mode is active!
+      }
+
     }
 
     /// <summary>

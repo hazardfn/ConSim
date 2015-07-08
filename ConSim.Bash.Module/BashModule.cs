@@ -89,15 +89,18 @@ namespace ConSim.Bash.Module
     /// <summary>
     /// Occurs on standard output change.
     /// </summary>
-    event EventHandler<ConSim.Lib.Events.iModuleOutputEventArgs> onStandardOutputChange;
+    event EventHandler<ConSim.Lib.Events.iModuleOutputEventArgs> 
+      onStandardOutputChange;
     /// <summary>
     /// Occurs when error output change.
     /// </summary>
-    event EventHandler<ConSim.Lib.Events.iModuleOutputEventArgs> onErrorOutputChange;
+    event EventHandler<ConSim.Lib.Events.iModuleOutputEventArgs> 
+      onErrorOutputChange;
     /// <summary>
     /// Occurs on result code change.
     /// </summary>
-    event EventHandler<ConSim.Lib.Events.iModuleOutputEventArgs> onResultCodeChange;
+    event EventHandler<ConSim.Lib.Events.iModuleOutputEventArgs> 
+      onResultCodeChange;
 
     /// <summary>
     /// Standard output.
@@ -277,7 +280,8 @@ namespace ConSim.Bash.Module
 
       p.StartInfo.FileName = filename;
       p.StartInfo.Arguments = arguments;
-      p.StartInfo.UseShellExecute = false;  // ShellExecute = true not allowed when output is redirected..
+      // ShellExecute = true not allowed when output is redirected..
+      p.StartInfo.UseShellExecute = false;
       p.StartInfo.RedirectStandardOutput = true;
       p.StartInfo.RedirectStandardError = true;
       p.StartInfo.CreateNoWindow = true; 
@@ -288,8 +292,10 @@ namespace ConSim.Bash.Module
     /// <summary>
     /// Check if current running environment is not supported.
     /// </summary>
-    /// <returns><c>true</c>, if not supported, <c>false</c> otherwise.</returns>
-    /// <param name="nativeErrorCode">Native error code from Win32 Exception.</param>
+    /// <returns><c>true</c>, if not supported, 
+    /// <c>false</c> otherwise.</returns>
+    /// <param name="nativeErrorCode">Native error code from 
+    /// Win32 Exception.</param>
     private bool notSupported(int nativeErrorCode)
     {
       return (nativeErrorCode == 2

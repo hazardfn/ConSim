@@ -45,8 +45,11 @@ namespace ConSim.NUnit
       string[] args = new string[1];
       args[0] = "1";
 
-      testMod.standardOutputChanged += new EventHandler<iModuleOutputEventArgs>(onStandardChange);
-      testMod.errorOutputChanged += new EventHandler<iModuleOutputEventArgs>(onErrorChange);
+      testMod.standardOutputChanged += 
+        new EventHandler<iModuleOutputEventArgs>(onStandardChange);
+
+      testMod.errorOutputChanged += 
+        new EventHandler<iModuleOutputEventArgs>(onErrorChange);
 
       testMod.run ("increment", args); 
 

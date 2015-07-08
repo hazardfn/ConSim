@@ -56,9 +56,11 @@ namespace ConSim.Lib.Classes
     public readonly string LongDescription;
     /// <summary>
     /// The expected result is matched to the console output.
+    /// Not shown to the user, if you think it is important 
+    /// add it to the long description.
     /// </summary>
     [DataMember]
-    public readonly object ExpectedResult; // Not shown to the user, if you think it is important add it to the long description.
+    public readonly object ExpectedResult; 
     /// <summary>
     /// The allowed commands for this task.
     /// </summary>
@@ -123,7 +125,9 @@ namespace ConSim.Lib.Classes
     public void save(string filepath)
     {
       using (FileStream f = new FileStream (filepath, FileMode.Create)) {
-        DataContractJsonSerializer ser = new DataContractJsonSerializer (typeof(clsTask));
+        DataContractJsonSerializer ser = 
+          new DataContractJsonSerializer (typeof(clsTask));
+
         ser.WriteObject (f, this);
         f.Close ();
       }
@@ -135,28 +139,32 @@ namespace ConSim.Lib.Classes
     /// <param name="filepath">Path to a valid json task.</param>
     public clsTask (string filepath)
     {
+      clsTask newTask = null;
+
       using (FileStream f = new FileStream (filepath, FileMode.Open)) {
-        DataContractJsonSerializer ser = new DataContractJsonSerializer (typeof(clsTask));
-        clsTask newTask = (clsTask)ser.ReadObject (f);
+        DataContractJsonSerializer ser = 
+          new DataContractJsonSerializer (typeof(clsTask));
 
-        // Set readonly variables
-        this.ExpectedResult = newTask.ExpectedResult;
-        this.LongDescription = newTask.LongDescription;
-        this.Name = newTask.Name;
-        this.ShortDescription = newTask.ShortDescription;
-        this.lazyMatching = newTask.lazyMatching;
-        this.commandToTask = newTask.commandToTask;
-        this.errorToTask = newTask.errorToTask;
-        this.allowedCommands = newTask.allowedCommands;
-        this.disallowedStrings = newTask.disallowedStrings;
+        newTask = (clsTask)ser.ReadObject (f);
 
-        if (this.allowedCommands == null)
-          this.allowedCommands = new List<string> ();
-        if (this.disallowedStrings == null)
-          this.disallowedStrings = new List<string> ();
-        
         f.Close ();
       }
+
+      // Set readonly variables
+      this.ExpectedResult = newTask.ExpectedResult;
+      this.LongDescription = newTask.LongDescription;
+      this.Name = newTask.Name;
+      this.ShortDescription = newTask.ShortDescription;
+      this.lazyMatching = newTask.lazyMatching;
+      this.commandToTask = newTask.commandToTask;
+      this.errorToTask = newTask.errorToTask;
+      this.allowedCommands = newTask.allowedCommands;
+      this.disallowedStrings = newTask.disallowedStrings;
+
+      if (this.allowedCommands == null)
+        this.allowedCommands = new List<string> ();
+      if (this.disallowedStrings == null)
+        this.disallowedStrings = new List<string> ();
     }
 
     /// <summary>
@@ -167,11 +175,13 @@ namespace ConSim.Lib.Classes
     /// <param name="LongDescription">Long description.</param>
     /// <param name="ExpectedResult">Expected result.</param>
     /// <param name="Module">Module used to complete this task.</param>
-    public clsTask (string Name, string ShortDescription, string LongDescription, 
-      object ExpectedResult, bool lazyMatching = false, 
+    public clsTask (string Name, string ShortDescription, 
+      string LongDescription, object ExpectedResult, bool lazyMatching = false, 
       bool commandToTask = false, bool errorToTask = false,
-      List<string> allowedCommands = null, List<string> disallowedStrings = null)
+      List<string> allowedCommands = null, 
+      List<string> disallowedStrings = null)
     {
+      
       this.ExpectedResult  = ExpectedResult;
       this.LongDescription = LongDescription;
       this.Name = Name;
