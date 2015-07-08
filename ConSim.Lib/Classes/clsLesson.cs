@@ -301,8 +301,15 @@ namespace ConSim.Lib.Classes
 
       if (activeTask.errorToTask)
         comparison = mod.errorOutput ();
-      if (activeTask.commandToTask)
-        comparison = command;
+      if (activeTask.commandToTask) {
+        comparison = command + " ";
+
+        foreach (string s in args) {
+          comparison += s + " ";
+        }
+
+        comparison = comparison.TrimEnd ();
+      }
       if (activeTask.errorToTask && activeTask.commandToTask)
         comparison = mod.errorOutput ()
         + Environment.NewLine

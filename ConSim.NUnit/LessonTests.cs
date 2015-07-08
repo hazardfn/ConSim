@@ -252,6 +252,38 @@ namespace ConSim.NUnit
       Assert.AreEqual (lesson.attemptTask ("increment", args, 
         lesson.clsToiMod(module)), true);
     }
+
+    [Test ()]
+    public void TestCommandMatch() {
+      List<ConSim.Lib.Classes.clsTask> Tasks = 
+        new List<ConSim.Lib.Classes.clsTask> ();
+
+      List<ConSim.Lib.Classes.clsModule> AllowedModules = 
+        new List<ConSim.Lib.Classes.clsModule> ();
+
+      Tasks.Add (
+        new ConSim.Lib.Classes.clsTask (task.Name, task.ShortDescription, 
+          task.LongDescription, "increment 6",false,false,true, false, null, null)
+      );
+
+      AllowedModules.Add (module);
+
+      ConSim.Lib.Classes.clsLesson lesson = 
+        new ConSim.Lib.Classes.clsLesson (Name, Version, Tasks, AllowedModules, 
+          lessonDir);
+
+      string[] args = new string[1];
+
+      //Fail Test
+      args[0] = "4";
+      Assert.AreEqual (lesson.attemptTask ("increment", args, 
+        lesson.clsToiMod (module)), false);
+      //Success Test
+      args[0] = "6";
+      Assert.AreEqual (lesson.attemptTask ("increment", args, 
+        lesson.clsToiMod (module)), true);
+
+    }
     #endregion
   }
 }
