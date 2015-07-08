@@ -207,12 +207,12 @@ namespace ConSim.NUnit
 
       Tasks.Add (
         new ConSim.Lib.Classes.clsTask (task.Name, task.ShortDescription, 
-          task.LongDescription, 2)
+          task.LongDescription, "2")
       );
 
       Tasks.Add (
         new ConSim.Lib.Classes.clsTask (task.Name, task.ShortDescription, 
-          task.LongDescription, 3)
+          task.LongDescription, "3")
       );
 
       AllowedModules.Add (module);

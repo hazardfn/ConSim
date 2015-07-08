@@ -85,6 +85,44 @@ namespace ConSim.NUnit
       Assert.AreEqual (newTask.ShortDescription, "This is short");
       Assert.AreEqual (newTask.Name, "taskness");
     }
+
+    /// <summary>
+    /// Tests the lazy matching.
+    /// </summary>
+    [Test ()]
+    public void TestLazyMatching ()
+    {
+      ConSim.Lib.Classes.clsTask newTask = 
+        new clsTask (Name, ShortDescription, LongDescription, "needle", true,
+          false, false, false, new System.Collections.Generic.List<string>(), 
+          new System.Collections.Generic.List<string>());
+
+      string result = "hayneedlestack";
+      string result2 = "haynedlestack";
+
+      // Assert that lazy matching does what it is supposed to.
+      Assert.True(newTask.hasPassed(result));
+      Assert.False (newTask.hasPassed (result2));
+    }
+
+    /// <summary>
+    /// Tests the regex matching.
+    /// </summary>
+    [Test ()]
+    public void TestRegexMatching ()
+    {
+      ConSim.Lib.Classes.clsTask newTask = 
+        new clsTask (Name, ShortDescription, LongDescription, @"^needle$", false,
+          true, false, false, new System.Collections.Generic.List<string>(), 
+          new System.Collections.Generic.List<string>());
+
+      string result = @"needle";
+      string result2 = @"needles";
+
+      // Assert that lazy matching does what it is supposed to.
+      Assert.True(newTask.hasPassed(result));
+      Assert.False(newTask.hasPassed(result2));
+    }
     #endregion
   }
 }
