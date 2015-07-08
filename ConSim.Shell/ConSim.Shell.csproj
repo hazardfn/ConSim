@@ -7,7 +7,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ConSim.Shell</RootNamespace>
     <AssemblyName>ConSim.Shell</AssemblyName>
-    <ReleaseVersion>1.01</ReleaseVersion>
+    <ReleaseVersion>1.0.0</ReleaseVersion>
     <Description>A Shell for running ConSim lessons in.</Description>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -20,7 +20,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
-    <Commandlineparameters>-l "/Users/howardbeard-marlowe/Projects/ConSim/ConSim.NUnit/bin/Debug/Lessons/TestLesson/TestLesson.json"</Commandlineparameters>
     <Externalconsole>true</Externalconsole>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
@@ -31,7 +30,6 @@
     <WarningLevel>4</WarningLevel>
     <Externalconsole>true</Externalconsole>
     <PlatformTarget>x86</PlatformTarget>
-    <Commandlineparameters>-l "C:\Users\IEUser\ConSim\ConSim.NUnit\bin\Release\Lessons\TestLesson\TestLesson.json"</Commandlineparameters>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

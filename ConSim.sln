@@ -75,7 +75,7 @@ Global
 		$4.inheritsScope = text/plain
 		$4.scope = text/plain
 		$0.StandardHeader = $5
-		$5.Text = 
+		$5.Text = @ \n ${FileName}\n \n Author:\n      ${AuthorName} <${AuthorEmail}>\n\n Copyright (c) ${Year} ${CopyrightHolder}\n\n This program is free software: you can redistribute it and/or modify\n it under the terms of the GNU General Public License as published by\n the Free Software Foundation, either version 3 of the License, or\n (at your option) any later version.\n\n This program is distributed in the hope that it will be useful,\n but WITHOUT ANY WARRANTY; without even the implied warranty of\n MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n GNU General Public License for more details.\n\n You should have received a copy of the GNU General Public License\n along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		$5.IncludeInNewFiles = True
 		$0.NameConventionPolicy = $6
 		$6.Rules = $7
@@ -203,7 +203,23 @@ Global
 		$27.IncludeStaticEntities = True
 		$0.VersionControlPolicy = $29
 		$29.inheritsSet = Mono
+		$0.TextStylePolicy = $30
+		$30.inheritsSet = null
+		$30.scope = application/config+xml
+		$0.XmlFormattingPolicy = $31
+		$31.inheritsSet = null
+		$31.scope = application/config+xml
+		$0.TextStylePolicy = $32
+		$32.inheritsSet = null
+		$32.scope = application/xml
+		$0.XmlFormattingPolicy = $33
+		$33.inheritsSet = Mono
+		$33.inheritsScope = application/xml
+		$33.scope = application/xml
+		$0.TextStylePolicy = $34
+		$34.inheritsSet = null
+		$34.scope = application/json
 		description = @A console simulator designed for education purposes, allows custom\nmodules to be written for certain commands. The base version covers\nbasic Windows cmd functions.
-		version = 1.01
+		version = 1.0.0
 	EndGlobalSection
 EndGlobal

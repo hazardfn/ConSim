@@ -7,8 +7,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ConSim.Test.Module</RootNamespace>
     <AssemblyName>ConSim.Test.Module</AssemblyName>
-    <ReleaseVersion>1.01</ReleaseVersion>
-    <Description>Module used for NUnit Tests.</Description>
+    <ReleaseVersion>1.0.0</ReleaseVersion>
+    <Description>Module used in NUnit Tests.</Description>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
