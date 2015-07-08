@@ -22,6 +22,7 @@
 #region Includes
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -60,7 +61,7 @@ namespace ConSim.Lib.Classes
     /// add it to the long description.
     /// </summary>
     [DataMember]
-    public readonly object ExpectedResult; 
+    public readonly string ExpectedResult; 
     /// <summary>
     /// The allowed commands for this task.
     /// </summary>
@@ -77,8 +78,15 @@ namespace ConSim.Lib.Classes
     [DataMember]
     public readonly List<string> disallowedStrings;
     /// <summary>
-    /// If lazy matching is true you can check if the output
-    /// contains the expected result.
+    /// If regex matching is true you can
+    /// run regex against the expected result
+    /// instead.
+    /// </summary>
+    [DataMember]
+    public readonly bool regexMatching = false;
+    /// <summary>
+    /// Checks if the output contains the
+    /// expected result.
     /// </summary>
     [DataMember]
     public readonly bool lazyMatching = false;
@@ -102,15 +110,25 @@ namespace ConSim.Lib.Classes
     #region API
     /// <summary>
     /// Returns a true if the result supplied is the result expected.
+    /// 
+    /// If you set lazy matching AND regex matching to true it will
+    /// test regex first, if that fails it will try lazy. Then an
+    /// exact string match.
     /// </summary>
     /// <returns><c>true</c>, if passed, <c>false</c> otherwise.</returns>
     /// <param name="result">Result.</param>
-    public bool hasPassed(object result) {
+    public bool hasPassed(string result) {
       try {
-        if (lazyMatching)
-         return result.ToString ().Contains (ExpectedResult.ToString());
-        if(Convert.ChangeType(ExpectedResult, result.GetType()).Equals(result))
+        if (regexMatching && isRegexMatch(result))
+          return true;
+
+        if (lazyMatching
+        && result.ToString ().Contains (ExpectedResult.ToString()))
+          return true;
+
+        if(ExpectedResult == result)
          return true;
+        
       } catch (NullReferenceException) {
         return false;
       }
@@ -156,6 +174,7 @@ namespace ConSim.Lib.Classes
       this.Name = newTask.Name;
       this.ShortDescription = newTask.ShortDescription;
       this.lazyMatching = newTask.lazyMatching;
+      this.regexMatching = newTask.regexMatching;
       this.commandToTask = newTask.commandToTask;
       this.errorToTask = newTask.errorToTask;
       this.allowedCommands = newTask.allowedCommands;
@@ -176,9 +195,9 @@ namespace ConSim.Lib.Classes
     /// <param name="ExpectedResult">Expected result.</param>
     /// <param name="Module">Module used to complete this task.</param>
     public clsTask (string Name, string ShortDescription, 
-      string LongDescription, object ExpectedResult, bool lazyMatching = false, 
-      bool commandToTask = false, bool errorToTask = false,
-      List<string> allowedCommands = null, 
+      string LongDescription, string ExpectedResult, bool lazyMatching = false, 
+      bool regexMatching = false, bool commandToTask = false, 
+      bool errorToTask = false, List<string> allowedCommands = null, 
       List<string> disallowedStrings = null)
     {
       
@@ -187,6 +206,7 @@ namespace ConSim.Lib.Classes
       this.Name = Name;
       this.ShortDescription = ShortDescription;
       this.lazyMatching = lazyMatching;
+      this.regexMatching = regexMatching;
       this.commandToTask = commandToTask;
       this.errorToTask = errorToTask;
       this.allowedCommands = allowedCommands;
@@ -198,6 +218,16 @@ namespace ConSim.Lib.Classes
         this.disallowedStrings = new List<string> ();
     }
       
+    #endregion
+
+    /* INTERNALS */
+    #region Internals
+    private bool isRegexMatch(string result)
+    {
+      Regex rex = new Regex (this.ExpectedResult);
+
+      return rex.IsMatch (result);
+    }
     #endregion
   }
 }

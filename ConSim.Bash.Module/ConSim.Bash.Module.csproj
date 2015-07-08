@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ConSim.Bash.Module</RootNamespace>
     <AssemblyName>ConSim.Bash.Module</AssemblyName>
-    <ReleaseVersion>1.0.0</ReleaseVersion>
+    <ReleaseVersion>1.1.0</ReleaseVersion>
     <Description>A bash simulator module for ConSim. Forwards commands
 to bash and reads the error/standard output.</Description>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
