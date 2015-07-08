@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ConSim.Lib</RootNamespace>
     <AssemblyName>ConSim.Lib</AssemblyName>
-    <ReleaseVersion>1.1.2</ReleaseVersion>
+    <ReleaseVersion>1.1.3</ReleaseVersion>
     <Description>A console simulator designed for education purposes, allows custom
 modules to be written for certain commands and lesson creation.</Description>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>

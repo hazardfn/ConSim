@@ -13,6 +13,7 @@ echo %msbuild.exe% exists!
 echo.
 echo Build
 echo -----------------
+set platform=
 @echo on
 "%msbuild.exe%" /p:Configuration=Release "%cd%\ConSim.Lib\ConSim.Lib.csproj"
 "%msbuild.exe%" /p:Configuration=Release "%cd%\ConSim.Windows.Module\ConSim.Windows.Module.csproj"
