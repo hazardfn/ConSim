@@ -34,7 +34,8 @@ Usage
     {
       "__type": "clsModule:#Classes",
       "filename": "ConSim.Test.Module.dll",
-      "gettype": "Modules.TestModule"
+      "gettype": "Modules.TestModule",
+      "commands": []
     }
   ],
   "Name": "TestLesson",
@@ -79,6 +80,11 @@ Usage
  
  **gettype**: This should be the "Namespace.Class" of this module which can be determined in the source code.
 
+ **commands**: A list of overall commands the module can be given.
+
+ __NOTE: Some modules may only provide a certain set of commands whereas others may be more open which is why
+ it was decided to give you the option to decide what commands to pass to the module. Review the documentation
+ for the module you are using for information__\
 
  Tasks
 ----------
@@ -94,7 +100,7 @@ Usage
  
  **ShortDescription**: A short description of the task, printed above the long one in ConSim.
  
- **allowedCommands**: A list of allowed commands out of the ones the modules provide. Empty implies all are allowed.
+ **allowedCommands**: A list of allowed commands out of the ones the modules provides (set above). Empty implies all are allowed.
  
  **commandToTask**: Set to true if your expected result analysis is on the command itself as opposed to the output.
  
