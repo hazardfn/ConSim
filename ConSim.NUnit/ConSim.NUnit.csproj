@@ -39,6 +39,8 @@
     <Compile Include="TaskTests.cs" />
     <Compile Include="ModuleTests.cs" />
     <Compile Include="LessonTests.cs" />
+    <Compile Include="WindowsModuleTests.cs" />
+    <Compile Include="BashModuleTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -60,6 +62,14 @@
     <ProjectReference Include="..\ConSim.Lib\ConSim.Lib.csproj">
       <Project>{7BB0F45B-07DE-45E0-A8B3-085C48DD31B3}</Project>
       <Name>ConSim.Lib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ConSim.Windows.Module\ConSim.Windows.Module.csproj">
+      <Project>{77F3F858-7CE9-4AF0-87BA-D77CD8FB9B38}</Project>
+      <Name>ConSim.Windows.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ConSim.Bash.Module\ConSim.Bash.Module.csproj">
+      <Project>{3794C8FA-B909-4008-AE78-6E34E1D5BD58}</Project>
+      <Name>ConSim.Bash.Module</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

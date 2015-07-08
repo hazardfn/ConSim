@@ -33,15 +33,22 @@ namespace ConSim.NUnit
   public class TaskTest
   {
     /* Test Variables */
-    private static readonly char ps       = Path.DirectorySeparatorChar;
-    private static readonly string baseDir  = AppDomain.CurrentDomain.BaseDirectory;
-    private static readonly string taskJSON = baseDir + ps + "Lessons" + ps + "TestLesson" + ps + "Tasks" + ps + "TestTask.json";
+    private static readonly char ps         = Path.DirectorySeparatorChar;
+    private static readonly string baseDir  = 
+      AppDomain.CurrentDomain.BaseDirectory;
+    private static readonly string taskJSON = 
+      baseDir + ps + "Lessons" + ps + "TestLesson" + ps + "Tasks" + ps + 
+      "TestTask.json";
 
-    private static readonly string ExpectedResult   = "true";
-    private static readonly string LongDescription  = "This is a long description";
-    private static readonly string ShortDescription = "This is short";
-    private static readonly string Name             = "taskness";
-    private static readonly ConSim.Lib.Classes.clsTask task    = new ConSim.Lib.Classes.clsTask (Name,ShortDescription,LongDescription,ExpectedResult);
+    private static readonly string ExpectedResult           = 
+      "true";
+    private static readonly string LongDescription          = 
+      "This is a long description";
+    private static readonly string ShortDescription         = "This is short";
+    private static readonly string Name                     = "taskness";
+    private static readonly ConSim.Lib.Classes.clsTask task = 
+      new ConSim.Lib.Classes.clsTask (Name,ShortDescription,LongDescription,
+        ExpectedResult);
 
 
     /* TESTS */
@@ -53,7 +60,8 @@ namespace ConSim.NUnit
     public void TestTaskWrite ()
     {
       task.save (taskJSON);
-      ConSim.Lib.Classes.clsTask newTask = new ConSim.Lib.Classes.clsTask (taskJSON);
+      ConSim.Lib.Classes.clsTask newTask = 
+        new ConSim.Lib.Classes.clsTask (taskJSON);
 
       // Assert that the values on read-back are the same
       Assert.AreEqual (newTask.ExpectedResult, ExpectedResult);
@@ -68,7 +76,8 @@ namespace ConSim.NUnit
     [Test ()]
     public void TestExistingTaskRead ()
     {
-      ConSim.Lib.Classes.clsTask newTask = new ConSim.Lib.Classes.clsTask (taskJSON);
+      ConSim.Lib.Classes.clsTask newTask = 
+        new ConSim.Lib.Classes.clsTask (taskJSON);
 
       // Assert that the values on read-back are the same
       Assert.AreEqual (newTask.ExpectedResult, "true");
