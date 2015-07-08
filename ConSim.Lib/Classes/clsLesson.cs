@@ -362,8 +362,16 @@ namespace ConSim.Lib.Classes
 
         string dest = tempPath + m.filename;
 
-        if (!File.Exists (dest))
+        if (File.Exists (dest)) {
+          try {
+            File.Copy (src, dest, true);
+          } catch (IOException) {
+            // Couldn't copy the file probably
+            // Because it is already in use.
+          }
+        } else {
           File.Copy (src, dest);
+        }
 
         Assembly DLL = Assembly.LoadFile (dest);
         Type moduleType = DLL.GetType (m.gettype);

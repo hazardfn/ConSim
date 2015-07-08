@@ -7,7 +7,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ConSim.Shell</RootNamespace>
     <AssemblyName>ConSim.Shell</AssemblyName>
-    <ReleaseVersion>1.1.0</ReleaseVersion>
+    <ReleaseVersion>1.1.1</ReleaseVersion>
     <Description>A Shell for running ConSim lessons in.</Description>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
