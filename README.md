@@ -28,7 +28,7 @@ Usage
 
  Lesson.json looks like so:
 
- ```
+ ````json
  {
   "AllowedModules": [
     {
@@ -59,7 +59,7 @@ Usage
   ],
   "Version": "TEST",
 }
- ```
+ ````
 
  Lesson
 ---------
@@ -82,9 +82,9 @@ Usage
 
  **commands**: A list of overall commands the module can be given.
 
- __NOTE: Some modules may only provide a certain set of commands whereas others may be more open which is why
+ _NOTE: Some modules may only provide a certain set of commands whereas others may be more open which is why
  it was decided to give you the option to decide what commands to pass to the module. Review the documentation
- for the module you are using for information__\
+ for the module you are using for information_
 
  Tasks
 ----------
@@ -110,9 +110,8 @@ Usage
 
  **regexMatching**: Set to true if your expected result is a regex pattern.
 
-NOTE Matching flows as following in the cases where lazy and regex are set to true:
-
-regex -> lazy -> exact
+_NOTE: Matching flows as following in the cases where lazy and regex are set to true:_
+_regex -> lazy -> exact_
 
 Loading the TestLesson
 --------
