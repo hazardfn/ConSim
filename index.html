@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Consim by hazardfn</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Consim</h1>
+        <h2>A Console Simulator for education purposes.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/hazardfn/ConSim/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/hazardfn/ConSim/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/hazardfn/ConSim" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="overview--travis-ci--" class="anchor" href="#overview--travis-ci--" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview | <a href="https://travis-ci.org/hazardfn/ConSim">Travis-CI</a> :: <img src="https://travis-ci.org/hazardfn/ConSim.svg" alt="Build Status">
+</h1>
+
+<hr>
+
+<p>ConSim is a Console Simulator for education purposes - this suite allows you to create lessons with a group of tasks and use them
+to illustrate the versaility of a terminal in a closed and controlled environment.</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Set up multiple lessons consisting of a group of tasks which a student must complete to advance.</li>
+<li>Supports multiple modules allowing you to, in theory, write your own basic language to demonstrate simple terminal commands.</li>
+<li>Comes with a Windows module which will forward commands to cmd and print the output.</li>
+<li>Limit the allowed commands and even filter the arguments to prevent any dangerous commands being run.</li>
+<li>Comes with a Bash module for forwarding commands to bash.</li>
+<li>Use the expected result field to control expected output used for passing tasks.</li>
+<li>Can use the error output to compare to the expected output if you wish to demonstrate errors.</li>
+<li>Can use the command itself as a comparison if you wish to just check the student put in the right command to pass the task.</li>
+<li>Sandbox mode allows you to have an open ended session not dependant on task completion. (Simply give a lesson with no tasks).</li>
+</ul>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>You may choose to use ConSim.Shell as your basic interpreter or write a more personalised one for your environment,  regardless, the file structure must be as follows:</p>
+
+<pre><code> =&gt; Lesson
+ ==&gt; Lesson.json
+ ==&gt; Modules
+ ===&gt; [Module DLL's]
+</code></pre>
+
+<p>Lesson.json looks like so:</p>
+
+<div class="highlight highlight-json"><pre> {
+  <span class="pl-s"><span class="pl-pds">"</span>AllowedModules<span class="pl-pds">"</span></span>: [
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>__type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>clsModule:#Classes<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>filename<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>ConSim.Test.Module.dll<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>gettype<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Modules.TestModule<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>commands<span class="pl-pds">"</span></span>: []
+    }
+  ],
+  <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>TestLesson<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>Tasks<span class="pl-pds">"</span></span>: [
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>ExpectedResult<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>LongDescription<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>This is a long description<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>taskness<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>ShortDescription<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>This is short<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>allowedCommands<span class="pl-pds">"</span></span>: [
+
+      ],
+      <span class="pl-s"><span class="pl-pds">"</span>commandToTask<span class="pl-pds">"</span></span>: <span class="pl-c1">false</span>,
+      <span class="pl-s"><span class="pl-pds">"</span>disallowedStrings<span class="pl-pds">"</span></span>: [
+
+      ],
+      <span class="pl-s"><span class="pl-pds">"</span>errorToTask<span class="pl-pds">"</span></span>: <span class="pl-c1">false</span>,
+      <span class="pl-s"><span class="pl-pds">"</span>lazyMatching<span class="pl-pds">"</span></span>: <span class="pl-c1">false</span>,
+      <span class="pl-s"><span class="pl-pds">"</span>regexMatching<span class="pl-pds">"</span></span>: <span class="pl-c1">false</span>
+    }
+  ],
+  <span class="pl-s"><span class="pl-pds">"</span>Version<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>TEST<span class="pl-pds">"</span></span>,
+}</pre></div>
+
+<h2>
+<a id="-lesson" class="anchor" href="#-lesson" aria-hidden="true"><span class="octicon octicon-link"></span></a> Lesson</h2>
+
+<p>The lesson itself only contains 2 datafields (Name &amp; Version) they are pretty self explanatory:</p>
+
+<p><strong>Name</strong>: Name of the lesson - shown in ConSim.Shell.</p>
+
+<p><strong>Version</strong>: Version of the lesson - shown next to the name in ConSim.Shell.</p>
+
+<h2>
+<a id="-allowed-modules" class="anchor" href="#-allowed-modules" aria-hidden="true"><span class="octicon octicon-link"></span></a> Allowed Modules</h2>
+
+<p>Allowed modules is an array, multiple entries can be added using the following fields:</p>
+
+<p><strong>__type</strong>: You should not change, this is so the json deserializer knows the type to deserialize to.</p>
+
+<p><strong>filename</strong>: This is the name of the dll file this entry relates to. Must be placed in the modules directory.</p>
+
+<p><strong>gettype</strong>: This should be the "Namespace.Class" of this module which can be determined in the source code.</p>
+
+<p><strong>commands</strong>: A list of overall commands the module can be given.</p>
+
+<p><em>NOTE: Some modules may only provide a certain set of commands whereas others may be more open which is why
+ it was decided to give you the option to decide what commands to pass to the module. Review the documentation
+ for the module you are using for information</em></p>
+
+<h2>
+<a id="-tasks" class="anchor" href="#-tasks" aria-hidden="true"><span class="octicon octicon-link"></span></a> Tasks</h2>
+
+<p>Tasks is also an array and is where the main portion of the activities are defined, see below for field documentation:</p>
+
+<p><strong>__type</strong>: You should not change, this is so the json deserializer knows the type to deserialize to.</p>
+
+<p><strong>ExpectedResult</strong>: The result required from the module/console/terminal before the task is passed.</p>
+
+<p><strong>LongDescription</strong>: A lengthy description of the task, you can include the expected result here if you wish.</p>
+
+<p><strong>Name</strong>: The name of the task.</p>
+
+<p><strong>ShortDescription</strong>: A short description of the task, printed above the long one in ConSim.</p>
+
+<p><strong>allowedCommands</strong>: A list of allowed commands out of the ones the modules provides (set above). Empty implies all are allowed.</p>
+
+<p><strong>commandToTask</strong>: Set to true if your expected result analysis is on the command itself as opposed to the output.</p>
+
+<p><strong>errorToTask</strong>: Set to true if your expected result analysis is on an error that should be returned as opposed to the output.</p>
+
+<p><strong>lazyMatching</strong>: Set to true if you just want to match part of the output (can be combined with command and error to task).</p>
+
+<p><strong>regexMatching</strong>: Set to true if your expected result is a regex pattern.</p>
+
+<p><em>NOTE: Matching flows as following in the cases where lazy and regex are set to true:</em>
+<em>regex -&gt; lazy -&gt; exact</em></p>
+
+<h2>
+<a id="loading-the-testlesson" class="anchor" href="#loading-the-testlesson" aria-hidden="true"><span class="octicon octicon-link"></span></a>Loading the TestLesson</h2>
+
+<p>Loading the test lesson with ConSim can be a good way for you to experiment and see how things work. Simply open a  terminal and type the following:</p>
+
+<pre><code> ConSim.Shell.exe -l "ConSim.NUnit/bin/[Release | Debug]/Lessons/TestLesson/TestLesson.json"
+</code></pre>
+
+<p><img src="http://imageshack.com/a/img673/3586/A1RBZ2.png" alt="Example"></p>
+
+<p>The expected result is 2, the test module increments an argument by 1 so supplying the command "increment 1" should  pass the task.</p>
+
+<h2>
+<a id="how-to-contribute" class="anchor" href="#how-to-contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>How To Contribute</h2>
+
+<p>To contribute, the following criteria needs to be fulfilled:</p>
+
+<ul>
+<li>Description regarding what has been changed and why</li>
+<li>Generic code must be cross-platform compatible</li>
+<li>OS-Specific modules (such as the Windows Module) should be tested in the correct OS.</li>
+<li>Your IDE should be set to the following standards (using Xamarin this will be done automatically):
+
+<ul>
+<li>80 char file width</li>
+<li>Tab and Indent length of 2</li>
+<li>Tabs to Spaces</li>
+<li>Disallow tabs after non-tabs</li>
+<li>Trim Trailing Whitespace</li>
+</ul>
+</li>
+<li>New features and bug fixes must have accompanying unit tests:
+
+<ul>
+<li>Positive tests</li>
+<li>Negative tests</li>
+<li>Boundary tests (if possible)</li>
+<li>No less than 90% decision coverage</li>
+<li>All unit tests should pass</li>
+</ul>
+</li>
+</ul>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
