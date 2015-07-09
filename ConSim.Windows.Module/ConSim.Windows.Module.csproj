@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ConSim.Windows.Module</RootNamespace>
     <AssemblyName>ConSim.Windows.Module</AssemblyName>
-    <ReleaseVersion>2.0.0</ReleaseVersion>
+    <ReleaseVersion>2.0.1</ReleaseVersion>
     <Description>A ConSim module which forwards commands to the windows
 console and returns the output.</Description>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
