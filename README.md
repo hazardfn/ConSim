@@ -120,7 +120,7 @@ Loading the TestLesson
  ```
  ConSim.Shell.exe -l "ConSim.NUnit/bin/[Release | Debug]/Lessons/TestLesson/TestLesson.json"
  ```
- ![Example](http://imageshack.com/a/img673/3586/A1RBZ2.png)
+ ![Example](http://imageshack.com/a/img538/5817/Z4qTKj.png)
 
  The expected result is 2, the test module increments an argument by 1 so supplying the command "increment 1" should  pass the task.
 
