@@ -27,6 +27,7 @@ using System.Text;
 using System.Collections;
 using System.Diagnostics;
 using System.ComponentModel;
+using System.Reflection;
 using System.Collections.Generic;
 using ConSim.Lib.Interfaces;
 using ConSim.Lib.Events;
@@ -144,7 +145,7 @@ namespace ConSim.Bash.Module
     /// <returns>The module version.</returns>
     string iModule.getVersion ()
     {
-      return "1.0.0";
+      return Assembly.GetExecutingAssembly ().GetName ().Version.ToString ();
     }
 
     bool iModule.unsupportedCommand (string cmd, string[] args)
