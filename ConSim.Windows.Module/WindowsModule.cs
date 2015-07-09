@@ -27,6 +27,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections;
 using System.Diagnostics;
+using System.Reflection;
 using System.ComponentModel;
 using System.Collections.Generic;
 using ConSim.Lib.Interfaces;
@@ -168,7 +169,7 @@ namespace ConSim.Windows.Module
     /// <returns>The module version.</returns>
     string iModule.getVersion ()
     {
-      return "1.0.0";
+      return Assembly.GetExecutingAssembly ().GetName ().Version.ToString ();
     }
 
     /// <summary>
