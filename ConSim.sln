@@ -14,6 +14,22 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FFD9A672-6EC3-479D-8F65-A294F6DC84F4}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		.travis.yml = .travis.yml
+		Makefile = Makefile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{451DA742-B666-4FC3-BBBB-4E1077B4E058}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows", "Windows", "{F88987B4-9A76-4EC0-B7EB-9470A778EB61}"
+	ProjectSection(SolutionItems) = preProject
+		Build\Windows\build.bat = Build\Windows\build.bat
+		Build\Windows\test.bat = Build\Windows\test.bat
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unix", "Unix", "{829243A5-55C6-4107-A6A5-304E32E097AF}"
+	ProjectSection(SolutionItems) = preProject
+		Build\Unix\build.sh = Build\Unix\build.sh
+		Build\Unix\test.sh = Build\Unix\test.sh
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConSim.Shell", "ConSim.Shell\ConSim.Shell.csproj", "{C7345891-88D3-4FE7-8190-4CFE7C0B4DD1}"
@@ -50,6 +66,9 @@ Global
 		{D6244E11-0886-4B01-B951-7D4972D6BFD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{451DA742-B666-4FC3-BBBB-4E1077B4E058} = {FFD9A672-6EC3-479D-8F65-A294F6DC84F4}
+		{F88987B4-9A76-4EC0-B7EB-9470A778EB61} = {451DA742-B666-4FC3-BBBB-4E1077B4E058}
+		{829243A5-55C6-4107-A6A5-304E32E097AF} = {451DA742-B666-4FC3-BBBB-4E1077B4E058}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
